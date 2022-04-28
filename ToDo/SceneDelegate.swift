@@ -16,13 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let scene = (scene as? UIWindowScene) else { return }
         
-        let window = UIWindow(windowScene: scene)
-        let navigationController = UINavigationController()
-        let todoTableVC = TodoListViewController()
-        navigationController.viewControllers = [todoTableVC]
-        window.rootViewController = navigationController
-        window.makeKeyAndVisible()
-        self.window = window
+        self.window = setWindow(scene)
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -56,6 +51,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
 
+    private func setWindow(_ scene: UIWindowScene) -> UIWindow {
+        let window = UIWindow(windowScene: scene)
+        let navigationController = UINavigationController()
+        let todoTableVC = TodoListViewController()
+        navigationController.viewControllers = [todoTableVC]
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
+        return window
+    }
 
 }
 

@@ -15,8 +15,8 @@ class TodoListViewController: UITableViewController {
         view.backgroundColor = .systemYellow
         title = "ToDo"
         navigationController?.navigationBar.prefersLargeTitles = true
-        tableView.register(UINib(nibName: "ToDoTableViewCell", bundle: nil), forCellReuseIdentifier: "ToDoTableViewCell")
-       
+       // tableView.register(UINib(nibName: "ToDoTableViewCell", bundle: nil), forCellReuseIdentifier: "ToDoTableViewCell")
+        tableView.register(TableViewCell.self, forCellReuseIdentifier: "Cell")
     }
 }
 
@@ -27,8 +27,9 @@ extension TodoListViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoTableViewCell") as? ToDoTableViewCell else { return UITableViewCell() }
-        cell.label.text = "111"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TableViewCell else { return UITableViewCell() }
+        cell.titleLabel.text = "111"
+        cell.countLabel.text = "1"
         return cell
     }
 }
