@@ -1,16 +1,14 @@
 //
-//  ViewController.swift
+//  TasksTableViewController.swift
 //  ToDo
 //
-//  Created by Duxxless on 26.04.2022.
+//  Created by Duxxless on 29.04.2022.
 //
 
 import UIKit
 import RealmSwift
 
-class TodoListViewController: UITableViewController {
-    
-    let tasksLists = [TasksList]()
+class TasksTableVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,27 +18,24 @@ class TodoListViewController: UITableViewController {
     
     
     private func setTableView() {
-        navigationItem.leftBarButtonItem = editButtonItem
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAlert))
-      
-        navigationItem.rightBarButtonItem = addButton
+        
+        navigationItem.rightBarButtonItems = [addButton, editButtonItem]
         
         view.backgroundColor = .systemYellow
         title = "ToDo"
-        navigationController?.navigationBar.prefersLargeTitles = true
-       // tableView.register(UINib(nibName: "ToDoTableViewCell", bundle: nil), forCellReuseIdentifier: "ToDoTableViewCell")
-        tableView.register(TableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(TasksListTableViewCell.self, forCellReuseIdentifier: "Cell")
     }
 }
 
-extension TodoListViewController {
+extension TasksTableVC {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 50
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TasksListTableViewCell else { return UITableViewCell() }
         cell.titleLabel.text = "111"
         cell.countLabel.text = "1"
         return cell
@@ -48,7 +43,7 @@ extension TodoListViewController {
 }
 
 
-extension TodoListViewController {
+extension TasksTableVC {
     
     @objc func showAlert() {
         
@@ -60,7 +55,7 @@ extension TodoListViewController {
             
         }
         
-        let cancelActon = UIAlertAction(title: "Отмена", style: .cancel)
+        let cancelActon = UIAlertAction(title: "Отмена", style: .default)
         alert.addTextField { tf in
             tf.placeholder = "Введите название списка"
         }

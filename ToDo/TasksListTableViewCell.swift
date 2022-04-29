@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableViewCell: UITableViewCell {
+class TasksListTableViewCell: UITableViewCell {
 
         
         let titleLabel: UILabel = {
