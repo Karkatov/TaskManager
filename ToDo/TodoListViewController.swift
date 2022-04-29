@@ -6,11 +6,24 @@
 //
 
 import UIKit
+import RealmSwift
 
 class TodoListViewController: UITableViewController {
-
+    
+    let tasksLists = [TasksList]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setTableView()
+    }
+    
+    
+    private func setTableView() {
+        navigationItem.leftBarButtonItem = editButtonItem
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAlert))
+      
+        navigationItem.rightBarButtonItem = addButton
         
         view.backgroundColor = .systemYellow
         title = "ToDo"
@@ -31,5 +44,28 @@ extension TodoListViewController {
         cell.titleLabel.text = "111"
         cell.countLabel.text = "1"
         return cell
+    }
+}
+
+
+extension TodoListViewController {
+    
+    @objc func showAlert() {
+        
+        let title = ""
+        let massege = ""
+        
+        let alert = UIAlertController(title: title, message: massege, preferredStyle: .alert)
+        let doneAction = UIAlertAction(title: "OK", style: .default) { action in
+            
+        }
+        
+        let cancelActon = UIAlertAction(title: "Отмена", style: .cancel)
+        alert.addTextField { tf in
+            tf.placeholder = "Введите название списка"
+        }
+        alert.addAction(doneAction)
+        alert.addAction(cancelActon)
+        present(alert, animated: true)
     }
 }

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		C55C5A9DDCE33912135BC658 /* Pods_ToDo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 883B1527669C78FD3807FDA7 /* Pods_ToDo.framework */; };
+		FA12CEBB281C4AD0003D2F66 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12CEBA281C4AD0003D2F66 /* Task.swift */; };
+		FA12CEBD281C4AD9003D2F66 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12CEBC281C4AD9003D2F66 /* TaskList.swift */; };
+		FA12CEBF281C4C4B003D2F66 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12CEBE281C4C4B003D2F66 /* StorageManager.swift */; };
 		FA2A1AC4281AFE9C000590B9 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2A1AC3281AFE9C000590B9 /* TableViewCell.swift */; };
 		FA338E14281759BC00C2F4A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA338E13281759BC00C2F4A9 /* AppDelegate.swift */; };
 		FA338E16281759BC00C2F4A9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA338E15281759BC00C2F4A9 /* SceneDelegate.swift */; };
@@ -24,6 +27,9 @@
 		883B1527669C78FD3807FDA7 /* Pods_ToDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B7ED6C267F27FF5C16A500B /* Pods-ToDo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo.debug.xcconfig"; path = "Target Support Files/Pods-ToDo/Pods-ToDo.debug.xcconfig"; sourceTree = "<group>"; };
 		C090563B9304352BF6363361 /* Pods-ToDo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo.release.xcconfig"; path = "Target Support Files/Pods-ToDo/Pods-ToDo.release.xcconfig"; sourceTree = "<group>"; };
+		FA12CEBA281C4AD0003D2F66 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		FA12CEBC281C4AD9003D2F66 /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
+		FA12CEBE281C4C4B003D2F66 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		FA2A1AC3281AFE9C000590B9 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		FA338E10281759BC00C2F4A9 /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA338E13281759BC00C2F4A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +97,9 @@
 				FA338E13281759BC00C2F4A9 /* AppDelegate.swift */,
 				FA338E15281759BC00C2F4A9 /* SceneDelegate.swift */,
 				FA338E17281759BC00C2F4A9 /* TodoListViewController.swift */,
+				FA12CEBE281C4C4B003D2F66 /* StorageManager.swift */,
+				FA12CEBA281C4AD0003D2F66 /* Task.swift */,
+				FA12CEBC281C4AD9003D2F66 /* TaskList.swift */,
 				FAA280052817F576003F1875 /* ToDoTableViewCell.swift */,
 				FA2A1AC3281AFE9C000590B9 /* TableViewCell.swift */,
 				FAA280062817F576003F1875 /* ToDoTableViewCell.xib */,
@@ -219,11 +228,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA12CEBD281C4AD9003D2F66 /* TaskList.swift in Sources */,
 				FAA280072817F576003F1875 /* ToDoTableViewCell.swift in Sources */,
 				FA338E18281759BC00C2F4A9 /* TodoListViewController.swift in Sources */,
+				FA12CEBF281C4C4B003D2F66 /* StorageManager.swift in Sources */,
 				FA338E14281759BC00C2F4A9 /* AppDelegate.swift in Sources */,
 				FA2A1AC4281AFE9C000590B9 /* TableViewCell.swift in Sources */,
 				FA338E16281759BC00C2F4A9 /* SceneDelegate.swift in Sources */,
+				FA12CEBB281C4AD0003D2F66 /* Task.swift in Sources */,
 				FA338E1E281759BC00C2F4A9 /* ToDo.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
