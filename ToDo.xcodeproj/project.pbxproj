@@ -94,22 +94,54 @@
 		FA338E12281759BC00C2F4A9 /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
-				FA338E17281759BC00C2F4A9 /* TasksListTableVC.swift */,
-				FA12CEC2281C7040003D2F66 /* TasksTableVC.swift */,
+				FAF1924A2822AF78003639C1 /* Model */,
+				FAF192482822AF4F003639C1 /* View */,
+				FAF192492822AF62003639C1 /* Controllers */,
+				FAF1924B2822AF9B003639C1 /* Supporting files */,
+				FA338E24281759BD00C2F4A9 /* Info.plist */,
+			);
+			path = ToDo;
+			sourceTree = "<group>";
+		};
+		FAF192482822AF4F003639C1 /* View */ = {
+			isa = PBXGroup;
+			children = (
 				FA12CEC0281C6F76003D2F66 /* TasksTableViewCell.swift */,
 				FA2A1AC3281AFE9C000590B9 /* TasksListTableViewCell.swift */,
-				FA338E13281759BC00C2F4A9 /* AppDelegate.swift */,
-				FA338E15281759BC00C2F4A9 /* SceneDelegate.swift */,
-				FA12CEBE281C4C4B003D2F66 /* StorageManager.swift */,
-				FA12CEBA281C4AD0003D2F66 /* Task.swift */,
-				FA12CEBC281C4AD9003D2F66 /* TaskList.swift */,
 				FA338E19281759BC00C2F4A9 /* Main.storyboard */,
 				FA338E1F281759BD00C2F4A9 /* Assets.xcassets */,
 				FA338E21281759BD00C2F4A9 /* LaunchScreen.storyboard */,
-				FA338E24281759BD00C2F4A9 /* Info.plist */,
-				FA338E1C281759BC00C2F4A9 /* ToDo.xcdatamodeld */,
 			);
-			path = ToDo;
+			path = View;
+			sourceTree = "<group>";
+		};
+		FAF192492822AF62003639C1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FA338E17281759BC00C2F4A9 /* TasksListTableVC.swift */,
+				FA12CEC2281C7040003D2F66 /* TasksTableVC.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		FAF1924A2822AF78003639C1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FA12CEBE281C4C4B003D2F66 /* StorageManager.swift */,
+				FA12CEBA281C4AD0003D2F66 /* Task.swift */,
+				FA12CEBC281C4AD9003D2F66 /* TaskList.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FAF1924B2822AF9B003639C1 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				FA338E1C281759BC00C2F4A9 /* ToDo.xcdatamodeld */,
+				FA338E13281759BC00C2F4A9 /* AppDelegate.swift */,
+				FA338E15281759BC00C2F4A9 /* SceneDelegate.swift */,
+			);
+			path = "Supporting files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

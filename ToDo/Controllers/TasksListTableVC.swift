@@ -26,6 +26,7 @@ class TasksListTableVC: UITableViewController {
         navigationItem.rightBarButtonItem = addButton
         
         view.backgroundColor = .systemYellow
+    
         title = "ToDo"
         navigationController?.navigationBar.prefersLargeTitles = true
        // tableView.register(UINib(nibName: "ToDoTableViewCell", bundle: nil), forCellReuseIdentifier: "ToDoTableViewCell")
@@ -36,13 +37,14 @@ class TasksListTableVC: UITableViewController {
 extension TasksListTableVC {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 50
+        return tasksLists.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TasksListTableViewCell else { return UITableViewCell() }
-        cell.titleLabel.text = "111"
-        cell.countLabel.text = "1"
+        let currentTasksList = tasksLists[indexPath.row]
+        cell.titleLabel.text = currentTasksList.name
+        cell.countLabel.text = String(currentTasksList.count)
         return cell
     }
     
@@ -57,12 +59,18 @@ extension TasksListTableVC {
     
     @objc func showAlert() {
         
-        let title = ""
+        let title = "Save TasksList"
         let massege = ""
         
         let alert = UIAlertController(title: title, message: massege, preferredStyle: .alert)
         let doneAction = UIAlertAction(title: "OK", style: .default) { action in
+            let newTasksList = TasksList()
+            guard let name = alert.textFields?.first?.text else { return }
+            newTasksList.name = name
             
+            DispatchQueue.main.async {
+                StorageManager.saveTasksList([newTasksList])
+            }
         }
         
         let cancelActon = UIAlertAction(title: "Отмена", style: .default)

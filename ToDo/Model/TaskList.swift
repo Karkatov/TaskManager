@@ -10,7 +10,7 @@ import RealmSwift
 
 class TasksList: Object {
     
-    @objc dynamic let name = ""
+    @objc dynamic var name = ""
     @objc dynamic let count = 0
     @objc dynamic let date = Date()
     
