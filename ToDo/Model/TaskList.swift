@@ -5,14 +5,14 @@
 //  Created by Duxxless on 29.04.2022.
 //
 
-import Foundation
+
 import RealmSwift
 
 class TasksList: Object {
     
     @objc dynamic var name = ""
-    @objc dynamic let count = 0
-    @objc dynamic let date = Date()
+    @objc dynamic var count = 0
+    @objc dynamic var date = Date()
     
     let tasks = List<Task>()
 }

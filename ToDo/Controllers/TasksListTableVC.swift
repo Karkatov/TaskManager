@@ -10,11 +10,18 @@ import RealmSwift
 
 class TasksListTableVC: UITableViewController {
     
-    let tasksLists = [TasksList]()
+    var tasksLists: Results<TasksList>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tasksLists = realm.objects(TasksList.self)
+        
+//        let newTasksList = TasksList()
+//        newTasksList.name = "Shop"
+//        newTasksList.tasks.append(Task())
+//        StorageManager.saveTasksList(newTasksList)
+//
         setTableView()
     }
     
@@ -37,6 +44,7 @@ class TasksListTableVC: UITableViewController {
 extension TasksListTableVC {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return tasksLists.count
     }
     
@@ -51,6 +59,18 @@ extension TasksListTableVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tasksVC = TasksTableVC()
         navigationController?.pushViewController(tasksVC, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        guard editingStyle == .delete else { return }
+        let tasksList = tasksLists[indexPath.row]
+        StorageManager.deleteTasksList(tasksList)
+        self.tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 }
 
@@ -69,7 +89,8 @@ extension TasksListTableVC {
             newTasksList.name = name
             
             DispatchQueue.main.async {
-                StorageManager.saveTasksList([newTasksList])
+                StorageManager.saveTasksList(newTasksList)
+                self.tableView.insertRows(at: [IndexPath(row: self.tasksLists.count - 1, section: 0)], with: .automatic)
             }
         }
         

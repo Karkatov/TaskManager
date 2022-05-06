@@ -5,16 +5,23 @@
 //  Created by Duxxless on 29.04.2022.
 //
 
-import Foundation
 import RealmSwift
 
 let realm = try! Realm()
 
 class StorageManager {
     
-    static func saveTasksList(_ tasksLists: [TasksList]) {
+    static func saveTasksList(_ tasksList: TasksList) {
         try! realm.write {
-            realm.add(tasksLists)
+            realm.add(tasksList)
+        }
+    }
+    
+    static func deleteTasksList(_ tasksList: TasksList) {
+        try! realm.write {
+            let tasks = tasksList.tasks
+            realm.delete(tasks)
+            realm.delete(tasksList)
         }
     }
 }
