@@ -11,7 +11,6 @@
 		FA12CEBB281C4AD0003D2F66 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12CEBA281C4AD0003D2F66 /* Task.swift */; };
 		FA12CEBD281C4AD9003D2F66 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12CEBC281C4AD9003D2F66 /* TaskList.swift */; };
 		FA12CEBF281C4C4B003D2F66 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12CEBE281C4C4B003D2F66 /* StorageManager.swift */; };
-		FA12CEC1281C6F76003D2F66 /* TasksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12CEC0281C6F76003D2F66 /* TasksTableViewCell.swift */; };
 		FA12CEC3281C7040003D2F66 /* TasksTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12CEC2281C7040003D2F66 /* TasksTableVC.swift */; };
 		FA2A1AC4281AFE9C000590B9 /* TasksListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2A1AC3281AFE9C000590B9 /* TasksListTableViewCell.swift */; };
 		FA338E14281759BC00C2F4A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA338E13281759BC00C2F4A9 /* AppDelegate.swift */; };
@@ -30,7 +29,6 @@
 		FA12CEBA281C4AD0003D2F66 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		FA12CEBC281C4AD9003D2F66 /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 		FA12CEBE281C4C4B003D2F66 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
-		FA12CEC0281C6F76003D2F66 /* TasksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewCell.swift; sourceTree = "<group>"; };
 		FA12CEC2281C7040003D2F66 /* TasksTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableVC.swift; sourceTree = "<group>"; };
 		FA2A1AC3281AFE9C000590B9 /* TasksListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewCell.swift; sourceTree = "<group>"; };
 		FA338E10281759BC00C2F4A9 /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,7 +104,6 @@
 		FAF192482822AF4F003639C1 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FA12CEC0281C6F76003D2F66 /* TasksTableViewCell.swift */,
 				FA2A1AC3281AFE9C000590B9 /* TasksListTableViewCell.swift */,
 				FA338E19281759BC00C2F4A9 /* Main.storyboard */,
 				FA338E1F281759BD00C2F4A9 /* Assets.xcassets */,
@@ -264,7 +261,6 @@
 				FA12CEBF281C4C4B003D2F66 /* StorageManager.swift in Sources */,
 				FA338E14281759BC00C2F4A9 /* AppDelegate.swift in Sources */,
 				FA2A1AC4281AFE9C000590B9 /* TasksListTableViewCell.swift in Sources */,
-				FA12CEC1281C6F76003D2F66 /* TasksTableViewCell.swift in Sources */,
 				FA12CEC3281C7040003D2F66 /* TasksTableVC.swift in Sources */,
 				FA338E16281759BC00C2F4A9 /* SceneDelegate.swift in Sources */,
 				FA12CEBB281C4AD0003D2F66 /* Task.swift in Sources */,

@@ -21,23 +21,29 @@ class TasksTableVC: UITableViewController {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAlert))
         
         navigationItem.rightBarButtonItems = [addButton, editButtonItem]
-        
-        view.backgroundColor = .systemYellow
+        view.backgroundColor = .systemGray6
         title = "ToDo"
-        tableView.register(TasksListTableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
 }
 
 extension TasksTableVC {
     
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "hello"
+    }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 50
+        return 5
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TasksListTableViewCell else { return UITableViewCell() }
-        cell.titleLabel.text = "111"
-        cell.countLabel.text = "1"
+        let cell = UITableViewCell.init(style: .value1, reuseIdentifier: "Cell")
+        cell.textLabel?.text = "111"
+        cell.detailTextLabel?.text = "1"
         return cell
     }
 }
@@ -57,7 +63,7 @@ extension TasksTableVC {
         
         let cancelActon = UIAlertAction(title: "Отмена", style: .default)
         alert.addTextField { tf in
-            tf.placeholder = "Введите название списка"
+            tf.placeholder = "Hовый список"
         }
         alert.addAction(doneAction)
         alert.addAction(cancelActon)
