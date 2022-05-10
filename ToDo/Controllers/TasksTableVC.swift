@@ -6,13 +6,14 @@
 //
 
 import UIKit
-//import RealmSwift
+import RealmSwift
 
 class TasksTableVC: UITableViewController {
     
+    var currentTasksList: TasksList!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setTableView()
     }
     
@@ -37,13 +38,14 @@ extension TasksTableVC {
         return "hello"
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return currentTasksList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell.init(style: .value1, reuseIdentifier: "Cell")
+        let task = currentTasksList.tasks[indexPath.row]
         cell.textLabel?.text = "111"
-        cell.detailTextLabel?.text = "1"
+        cell.detailTextLabel?.text = task.note
         return cell
     }
 }
@@ -58,7 +60,6 @@ extension TasksTableVC {
         
         let alert = UIAlertController(title: title, message: massege, preferredStyle: .alert)
         let doneAction = UIAlertAction(title: "OK", style: .default) { action in
-            
         }
         
         let cancelActon = UIAlertAction(title: "Отмена", style: .default)
