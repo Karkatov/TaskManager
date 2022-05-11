@@ -14,27 +14,18 @@ class TasksListTableVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tasksLists = realm.objects(TasksList.self)
-        
-        //        let newTasksList = TasksList()
-        //        newTasksList.name = "Shop"
-        //        newTasksList.tasks.append(Task())
-        //        StorageManager.saveTasksList(newTasksList)
-        //
         setTableView()
     }
     
     
     private func setTableView() {
         navigationItem.leftBarButtonItem = editButtonItem
+        self.navigationItem.leftBarButtonItem?.title = "Изменить"
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAlert))
-        
         navigationItem.rightBarButtonItem = addButton
-        
         view.backgroundColor = .systemYellow
-        
-        title = "ToDo"
+        title = "ToDoLists"
         navigationController?.navigationBar.prefersLargeTitles = true
         // tableView.register(UINib(nibName: "ToDoTableViewCell", bundle: nil), forCellReuseIdentifier: "ToDoTableViewCell")
         tableView.register(TasksListTableViewCell.self, forCellReuseIdentifier: "Cell")
@@ -86,17 +77,17 @@ extension TasksListTableVC {
         return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
     }
     
-    //    override func setEditing(_ editing: Bool, animated: Bool) {
-    //        super.setEditing(editing, animated: animated)
-    //
-    //        if editing {
-    //            self.editButton.title = "Готово"
-    //            tableView.setEditing(editing, animated: true)
-    //        } else {
-    //            tableView.endEditing(true)
-    //            self.editButton.title = "Изменить"
-    //        }
-    //    }
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        if editing {
+            self.navigationItem.leftBarButtonItem?.title = "Готово"
+            tableView.setEditing(editing, animated: true)
+        } else {
+            tableView.endEditing(true)
+            self.navigationItem.leftBarButtonItem?.title = "Изменить"
+        }
+    }
 }
 
 
