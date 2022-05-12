@@ -24,11 +24,16 @@ class TasksListTableVC: UITableViewController {
         self.navigationItem.leftBarButtonItem?.title = "Изменить"
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAlert))
         navigationItem.rightBarButtonItem = addButton
-        view.backgroundColor = .systemYellow
+        view.backgroundColor = .systemGray6
         title = "ToDoLists"
         navigationController?.navigationBar.prefersLargeTitles = true
         // tableView.register(UINib(nibName: "ToDoTableViewCell", bundle: nil), forCellReuseIdentifier: "ToDoTableViewCell")
         tableView.register(TasksListTableViewCell.self, forCellReuseIdentifier: "Cell")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
 }
 
@@ -43,7 +48,7 @@ extension TasksListTableVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TasksListTableViewCell else { return UITableViewCell() }
         let currentTasksList = tasksLists[indexPath.row]
         cell.titleLabel.text = currentTasksList.name
-        cell.countLabel.text = String(currentTasksList.count)
+        cell.countLabel.text = checkTasks(currentTasksList.tasks.count)
         return cell
     }
     
@@ -98,11 +103,11 @@ extension TasksListTableVC {
     }
     
     private func alertForAddAndUpdateList(_ tasksList: TasksList? = nil, complition: (() -> Void)? = nil) {
-        var title = "Новый список"
+        var title = "Новый список задач"
         var doneButtonText = "Сохранить"
         
         if tasksList != nil {
-            title = "Измените название списка"
+            title = "Название списка задач"
             doneButtonText = "Изменить"
         }
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
@@ -127,7 +132,7 @@ extension TasksListTableVC {
         
         let cancelActon = UIAlertAction(title: "Отмена", style: .default)
         alert.addTextField { tf in
-            tf.placeholder = "Введите название списка"
+            tf.placeholder = "Название"
             guard let nameList = tasksList?.name else { return }
             tf.text = nameList
         }
@@ -135,5 +140,16 @@ extension TasksListTableVC {
         alert.addAction(saveAction)
         alert.addAction(cancelActon)
         present(alert, animated: true)
+    }
+    
+    private func checkTasks(_ count: Int) -> String {
+        if count == 1 {
+            return "\(count) задача"
+        } else if (2...4).contains(count) {
+            return "\(count) задачи"
+        } else if count == 0 || (5...20).contains(count) {
+            return "\(count) задач"
+        }
+        return "\(count) задач"
     }
 }
