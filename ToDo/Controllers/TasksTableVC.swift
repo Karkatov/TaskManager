@@ -34,6 +34,12 @@ class TasksTableVC: UITableViewController {
         currentTasks = currentTasksList.tasks.filter("isComplete = false")
         completedTask = currentTasksList.tasks.filter("isComplete = true")
     }
+    
+    private func makeSlashText(_ text:String) -> NSAttributedString {
+     let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: text)
+        attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
+    return attributeString
+    }
 }
 
 extension TasksTableVC {
@@ -53,15 +59,21 @@ extension TasksTableVC {
         let cell = UITableViewCell.init(style: .subtitle, reuseIdentifier: "Cell")
         var task: Task!
         task = indexPath.section == 0 ? currentTasks[indexPath.row] : completedTask[indexPath.row]
-        cell.textLabel?.isEnabled = task.isComplete ? false : true
+        
+        
         cell.textLabel?.text = task.name
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         cell.textLabel?.numberOfLines = 0
-        cell.detailTextLabel?.isEnabled = task.isComplete ? false : true
         cell.detailTextLabel?.text = task.note
         cell.detailTextLabel?.numberOfLines = 0
         cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 18)
         
+        if task.isComplete == true {
+            cell.detailTextLabel?.isEnabled = false
+            cell.textLabel?.isEnabled = false
+            cell.textLabel?.attributedText = makeSlashText(task.name)
+            cell.detailTextLabel?.attributedText = makeSlashText(task.note)
+        }
         return cell
     }
     

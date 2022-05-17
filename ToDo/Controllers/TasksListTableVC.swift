@@ -11,13 +11,14 @@ import RealmSwift
 class TasksListTableVC: UITableViewController {
     
     var tasksLists: Results<TasksList>!
+    private let dateFormater = DateFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dateFormater.dateStyle = .medium
         tasksLists = realm.objects(TasksList.self)
         setTableView()
     }
-    
     
     private func setTableView() {
         navigationItem.leftBarButtonItem = editButtonItem
@@ -40,7 +41,6 @@ class TasksListTableVC: UITableViewController {
 extension TasksListTableVC {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return tasksLists.count
     }
     
@@ -49,6 +49,7 @@ extension TasksListTableVC {
         let currentTasksList = tasksLists[indexPath.row]
         cell.titleLabel.text = currentTasksList.name
         cell.countLabel.text = checkTasks(currentTasksList.tasks.count)
+        cell.dateLabel.text =  dateFormater.string(from: currentTasksList.date) 
         return cell
     }
     
@@ -94,7 +95,6 @@ extension TasksListTableVC {
         }
     }
 }
-
 
 extension TasksListTableVC {
     
@@ -143,7 +143,7 @@ extension TasksListTableVC {
     }
     
     private func checkTasks(_ count: Int) -> String {
-        if count == 1 {
+        if [1,21,31,41,51].contains(count) {
             return "\(count) задача"
         } else if (2...4).contains(count) {
             return "\(count) задачи"
