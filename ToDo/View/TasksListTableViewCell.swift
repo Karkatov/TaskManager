@@ -44,7 +44,7 @@ class TasksListTableViewCell: UITableViewCell {
     }
     
     private func setupCellView(_ view: UIView){
-        let textStack = UIStackView(arrangedSubviews: [titleLabel,countLabel])
+        let textStack = UIStackView(arrangedSubviews: [titleLabel, countLabel])
         textStack.alignment = .leading
         textStack.axis = .vertical
         textStack.distribution = .fill

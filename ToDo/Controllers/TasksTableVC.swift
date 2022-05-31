@@ -93,7 +93,7 @@ extension TasksTableVC {
             self.alertForAddAndUpdateTask(task) {
                 tableView.reloadRows(at: [indexPath], with: .automatic)
             }
-            complition(true)
+            //complition(true)
         }
         editAction.backgroundColor = .orange
         editAction.image = UIImage(systemName: "square.and.pencil")

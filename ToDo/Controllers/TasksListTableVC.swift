@@ -11,18 +11,22 @@ import RealmSwift
 class TasksListTableVC: UITableViewController {
     
     var tasksLists: Results<TasksList>!
-    private let dateFormater = DateFormatter()
+    private let dateFormater: DateFormatter = {
+        let dateForm = DateFormatter()
+        dateForm.locale = Locale(identifier: "ru_RU")
+        dateForm.dateStyle = .medium
+        return dateForm
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dateFormater.dateStyle = .medium
         tasksLists = realm.objects(TasksList.self)
         setTableView()
     }
     
     private func setTableView() {
         navigationItem.leftBarButtonItem = editButtonItem
-        self.navigationItem.leftBarButtonItem?.title = "Изменить"
+        navigationItem.leftBarButtonItem?.title = "Изменить"
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAlert))
         navigationItem.rightBarButtonItem = addButton
         view.backgroundColor = .systemGray6
@@ -49,7 +53,7 @@ extension TasksListTableVC {
         let currentTasksList = tasksLists[indexPath.row]
         cell.titleLabel.text = currentTasksList.name
         cell.countLabel.text = checkTasks(currentTasksList.tasks.count)
-        cell.dateLabel.text =  dateFormater.string(from: currentTasksList.date) 
+        cell.dateLabel.text = dateFormater.string(from: currentTasksList.date)
         return cell
     }
     
@@ -64,7 +68,7 @@ extension TasksListTableVC {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let currentList = self.tasksLists[indexPath.row]
+        let currentList = tasksLists[indexPath.row]
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, _ in
             StorageManager.deleteTasksList(currentList)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
