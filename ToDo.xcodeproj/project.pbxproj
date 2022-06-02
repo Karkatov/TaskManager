@@ -20,6 +20,10 @@
 		FA338E1E281759BC00C2F4A9 /* ToDo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA338E1C281759BC00C2F4A9 /* ToDo.xcdatamodeld */; };
 		FA338E20281759BD00C2F4A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA338E1F281759BD00C2F4A9 /* Assets.xcassets */; };
 		FA338E23281759BD00C2F4A9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA338E21281759BD00C2F4A9 /* LaunchScreen.storyboard */; };
+		FA87B39D2846BCD000833F83 /* TasksListTableViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87B39C2846BCD000833F83 /* TasksListTableViewViewModel.swift */; };
+		FA87B39F2846BE0D00833F83 /* TasksListTableViewViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87B39E2846BE0D00833F83 /* TasksListTableViewViewModelType.swift */; };
+		FA87B3A22846C20000833F83 /* TasksListTableViewCellViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87B3A12846C20000833F83 /* TasksListTableViewCellViewModelType.swift */; };
+		FA87B3A42846C38C00833F83 /* TasksListTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87B3A32846C38C00833F83 /* TasksListTableViewCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +44,10 @@
 		FA338E1F281759BD00C2F4A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA338E22281759BD00C2F4A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FA338E24281759BD00C2F4A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA87B39C2846BCD000833F83 /* TasksListTableViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewViewModel.swift; sourceTree = "<group>"; };
+		FA87B39E2846BE0D00833F83 /* TasksListTableViewViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewViewModelType.swift; sourceTree = "<group>"; };
+		FA87B3A12846C20000833F83 /* TasksListTableViewCellViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewCellViewModelType.swift; sourceTree = "<group>"; };
+		FA87B3A32846C38C00833F83 /* TasksListTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,13 +100,26 @@
 		FA338E12281759BC00C2F4A9 /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
+				FA338E17281759BC00C2F4A9 /* TasksListTableVC.swift */,
+				FA12CEC2281C7040003D2F66 /* TasksTableVC.swift */,
+				FA87B39C2846BCD000833F83 /* TasksListTableViewViewModel.swift */,
+				FA87B3A32846C38C00833F83 /* TasksListTableViewCellViewModel.swift */,
+				FA87B3A02846BECD00833F83 /* Protocols */,
 				FAF1924A2822AF78003639C1 /* Model */,
 				FAF192482822AF4F003639C1 /* View */,
-				FAF192492822AF62003639C1 /* Controllers */,
 				FAF1924B2822AF9B003639C1 /* Supporting files */,
 				FA338E24281759BD00C2F4A9 /* Info.plist */,
 			);
 			path = ToDo;
+			sourceTree = "<group>";
+		};
+		FA87B3A02846BECD00833F83 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				FA87B39E2846BE0D00833F83 /* TasksListTableViewViewModelType.swift */,
+				FA87B3A12846C20000833F83 /* TasksListTableViewCellViewModelType.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		FAF192482822AF4F003639C1 /* View */ = {
@@ -110,15 +131,6 @@
 				FA338E21281759BD00C2F4A9 /* LaunchScreen.storyboard */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		FAF192492822AF62003639C1 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				FA338E17281759BC00C2F4A9 /* TasksListTableVC.swift */,
-				FA12CEC2281C7040003D2F66 /* TasksTableVC.swift */,
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 		FAF1924A2822AF78003639C1 /* Model */ = {
@@ -256,8 +268,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA87B39D2846BCD000833F83 /* TasksListTableViewViewModel.swift in Sources */,
+				FA87B3A42846C38C00833F83 /* TasksListTableViewCellViewModel.swift in Sources */,
 				FA12CEBD281C4AD9003D2F66 /* TaskList.swift in Sources */,
 				FA338E18281759BC00C2F4A9 /* TasksListTableVC.swift in Sources */,
+				FA87B39F2846BE0D00833F83 /* TasksListTableViewViewModelType.swift in Sources */,
+				FA87B3A22846C20000833F83 /* TasksListTableViewCellViewModelType.swift in Sources */,
 				FA12CEBF281C4C4B003D2F66 /* StorageManager.swift in Sources */,
 				FA338E14281759BC00C2F4A9 /* AppDelegate.swift in Sources */,
 				FA2A1AC4281AFE9C000590B9 /* TasksListTableViewCell.swift in Sources */,

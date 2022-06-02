@@ -10,17 +10,11 @@ import RealmSwift
 
 class TasksListTableVC: UITableViewController {
     
-    var tasksLists: Results<TasksList>!
-    private let dateFormater: DateFormatter = {
-        let dateForm = DateFormatter()
-        dateForm.locale = Locale(identifier: "ru_RU")
-        dateForm.dateStyle = .medium
-        return dateForm
-    }()
+    var viewModel: TasksListTableViewViewModelType!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tasksLists = realm.objects(TasksList.self)
+        viewModel = TasksListTableViewViewModel()
         setTableView()
     }
     
@@ -45,22 +39,21 @@ class TasksListTableVC: UITableViewController {
 extension TasksListTableVC {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasksLists.count
+        return viewModel.numberOfRows
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TasksListTableViewCell else { return UITableViewCell() }
-        let currentTasksList = tasksLists[indexPath.row]
-        cell.titleLabel.text = currentTasksList.name
-        cell.countLabel.text = checkTasks(currentTasksList.tasks.count)
-        cell.dateLabel.text = dateFormater.string(from: currentTasksList.date)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TasksListTableViewCell,
+              let viewModel = viewModel else { return UITableViewCell() }
+        guard let cellViewModel = viewModel.cellViewModel(forIndexPath: indexPath) else { return UITableViewCell() }
+        cell.viewModel = cellViewModel
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let tasksVC = TasksTableVC()
-        tasksVC.currentTasksList = tasksLists[indexPath.row]
-        navigationController?.pushViewController(tasksVC, animated: true)
+       // let tasksVC = TasksTableVC()
+        //tasksVC.currentTasksList = viewModel.tasksLists[indexPath.row]
+      //  navigationController?.pushViewController(tasksVC, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -68,7 +61,7 @@ extension TasksListTableVC {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let currentList = tasksLists[indexPath.row]
+        let currentList = viewModel.tasksLists[indexPath.row]
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, _ in
             StorageManager.deleteTasksList(currentList)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -129,7 +122,7 @@ extension TasksListTableVC {
                 
                 DispatchQueue.main.async {
                     StorageManager.saveTasksList(newTasksList)
-                    self.tableView.insertRows(at: [IndexPath(row: self.tasksLists.count - 1, section: 0)], with: .automatic)
+                    self.tableView.insertRows(at: [IndexPath(row: self.viewModel.tasksLists.count - 1, section: 0)], with: .automatic)
                 }
             }
         }

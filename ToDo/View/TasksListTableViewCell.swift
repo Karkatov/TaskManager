@@ -9,6 +9,14 @@ import UIKit
 
 class TasksListTableViewCell: UITableViewCell {
     
+    var viewModel: TasksListTableViewCellViewModelType! {
+        willSet(viewModel) {
+            titleLabel.text = viewModel.titleLabel
+            countLabel.text = viewModel.countLabel
+            dateLabel.text = viewModel.dateLabel
+        }
+    }
+    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
@@ -63,4 +71,6 @@ class TasksListTableViewCell: UITableViewCell {
             dateLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
         ])
     }
+    
+    
 }
