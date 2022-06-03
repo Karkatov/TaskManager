@@ -51,9 +51,9 @@ extension TasksListTableVC {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       // let tasksVC = TasksTableVC()
-        //tasksVC.currentTasksList = viewModel.tasksLists[indexPath.row]
-      //  navigationController?.pushViewController(tasksVC, animated: true)
+        let tasksVC = TasksTableVC()
+        tasksVC.currentTasksList = viewModel.tasksLists[indexPath.row]
+        navigationController?.pushViewController(tasksVC, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -70,7 +70,7 @@ extension TasksListTableVC {
         deleteAction.image = UIImage(systemName: "trash")
         
         let editAction = UIContextualAction(style: .normal, title: nil) { _, _, complition in
-            self.alertForAddAndUpdateList(currentList, complition: {
+            self.alertForAddAndUpdateList(self.viewModel.tasksLists[indexPath.row], complition: {
                 tableView.reloadRows(at: [indexPath], with: .automatic)
             })
             complition(true)
@@ -122,7 +122,7 @@ extension TasksListTableVC {
                 
                 DispatchQueue.main.async {
                     StorageManager.saveTasksList(newTasksList)
-                    self.tableView.insertRows(at: [IndexPath(row: self.viewModel.tasksLists.count - 1, section: 0)], with: .automatic)
+                    self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
                 }
             }
         }

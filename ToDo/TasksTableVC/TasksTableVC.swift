@@ -10,6 +10,7 @@ import RealmSwift
 
 class TasksTableVC: UITableViewController {
     
+//    var viewModel: 
     var currentTasksList: TasksList!
     
     var currentTasks: Results<Task>!

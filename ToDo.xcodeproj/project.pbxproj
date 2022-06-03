@@ -24,6 +24,8 @@
 		FA87B39F2846BE0D00833F83 /* TasksListTableViewViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87B39E2846BE0D00833F83 /* TasksListTableViewViewModelType.swift */; };
 		FA87B3A22846C20000833F83 /* TasksListTableViewCellViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87B3A12846C20000833F83 /* TasksListTableViewCellViewModelType.swift */; };
 		FA87B3A42846C38C00833F83 /* TasksListTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87B3A32846C38C00833F83 /* TasksListTableViewCellViewModel.swift */; };
+		FA8983BB284AC1E100EFEFA9 /* TasksTableViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8983BA284AC1E100EFEFA9 /* TasksTableViewViewModel.swift */; };
+		FA8983BE284AC2B200EFEFA9 /* TasksTableVCViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8983BD284AC2B200EFEFA9 /* TasksTableVCViewModelType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,8 @@
 		FA87B39E2846BE0D00833F83 /* TasksListTableViewViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewViewModelType.swift; sourceTree = "<group>"; };
 		FA87B3A12846C20000833F83 /* TasksListTableViewCellViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewCellViewModelType.swift; sourceTree = "<group>"; };
 		FA87B3A32846C38C00833F83 /* TasksListTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		FA8983BA284AC1E100EFEFA9 /* TasksTableViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewViewModel.swift; sourceTree = "<group>"; };
+		FA8983BD284AC2B200EFEFA9 /* TasksTableVCViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TasksTableVCViewModelType.swift; path = ToDo/Protocols/TasksTableVCViewModelType.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,10 +104,8 @@
 		FA338E12281759BC00C2F4A9 /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
-				FA338E17281759BC00C2F4A9 /* TasksListTableVC.swift */,
-				FA12CEC2281C7040003D2F66 /* TasksTableVC.swift */,
-				FA87B39C2846BCD000833F83 /* TasksListTableViewViewModel.swift */,
-				FA87B3A32846C38C00833F83 /* TasksListTableViewCellViewModel.swift */,
+				FA8983B9284AC1BA00EFEFA9 /* TasksListTableVC */,
+				FA8983BC284AC1E900EFEFA9 /* TasksTableVC */,
 				FA87B3A02846BECD00833F83 /* Protocols */,
 				FAF1924A2822AF78003639C1 /* Model */,
 				FAF192482822AF4F003639C1 /* View */,
@@ -117,9 +119,29 @@
 			isa = PBXGroup;
 			children = (
 				FA87B39E2846BE0D00833F83 /* TasksListTableViewViewModelType.swift */,
+				FA8983BD284AC2B200EFEFA9 /* TasksTableVCViewModelType.swift */,
 				FA87B3A12846C20000833F83 /* TasksListTableViewCellViewModelType.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		FA8983B9284AC1BA00EFEFA9 /* TasksListTableVC */ = {
+			isa = PBXGroup;
+			children = (
+				FA338E17281759BC00C2F4A9 /* TasksListTableVC.swift */,
+				FA87B39C2846BCD000833F83 /* TasksListTableViewViewModel.swift */,
+				FA87B3A32846C38C00833F83 /* TasksListTableViewCellViewModel.swift */,
+			);
+			path = TasksListTableVC;
+			sourceTree = "<group>";
+		};
+		FA8983BC284AC1E900EFEFA9 /* TasksTableVC */ = {
+			isa = PBXGroup;
+			children = (
+				FA12CEC2281C7040003D2F66 /* TasksTableVC.swift */,
+				FA8983BA284AC1E100EFEFA9 /* TasksTableViewViewModel.swift */,
+			);
+			path = TasksTableVC;
 			sourceTree = "<group>";
 		};
 		FAF192482822AF4F003639C1 /* View */ = {
@@ -272,7 +294,9 @@
 				FA87B3A42846C38C00833F83 /* TasksListTableViewCellViewModel.swift in Sources */,
 				FA12CEBD281C4AD9003D2F66 /* TaskList.swift in Sources */,
 				FA338E18281759BC00C2F4A9 /* TasksListTableVC.swift in Sources */,
+				FA8983BE284AC2B200EFEFA9 /* TasksTableVCViewModelType.swift in Sources */,
 				FA87B39F2846BE0D00833F83 /* TasksListTableViewViewModelType.swift in Sources */,
+				FA8983BB284AC1E100EFEFA9 /* TasksTableViewViewModel.swift in Sources */,
 				FA87B3A22846C20000833F83 /* TasksListTableViewCellViewModelType.swift in Sources */,
 				FA12CEBF281C4C4B003D2F66 /* StorageManager.swift in Sources */,
 				FA338E14281759BC00C2F4A9 /* AppDelegate.swift in Sources */,
