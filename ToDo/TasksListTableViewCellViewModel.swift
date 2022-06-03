@@ -19,12 +19,11 @@ class TasksListTableViewCellViewModel: TasksListTableViewCellViewModelType {
         String(taskList.tasks.count)
     }
     
-    //ОШИБКА (ДАТА ВСЕГДА БУДЕТ ТЕКУЩАЯ)
     var dateLabel: String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ru_RU")
         dateFormatter.dateStyle = .medium
-        return dateFormatter.string(from: Date())
+        return dateFormatter.string(from: taskList.date)
     }
     
     init(taskList: TasksList) {
