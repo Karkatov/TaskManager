@@ -9,6 +9,6 @@ import Foundation
 
 protocol TasksListTableViewCellViewModelType {
     var titleLabel: String { get }
-    var countLabel: String { get }
     var dateLabel: String { get }
+    func calculateTasks() -> String
 }

@@ -15,8 +15,16 @@ class TasksListTableViewCellViewModel: TasksListTableViewCellViewModelType {
         return taskList.name
     }
     
-    var countLabel: String {
-        String(taskList.tasks.count)
+    func calculateTasks() -> String {
+        let taskCount = taskList.tasks.count
+        if [1,21,31,41,51].contains(taskCount) {
+                return "\(taskCount) задача"
+            } else if (2...4).contains(taskCount) {
+                return "\(taskCount) задачи"
+            } else if taskCount == 0 || (5...20).contains(taskCount) {
+                return "\(taskCount) задач"
+            }
+            return "\(taskCount) задач"
     }
     
     var dateLabel: String {

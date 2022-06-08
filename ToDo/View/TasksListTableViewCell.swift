@@ -12,7 +12,7 @@ class TasksListTableViewCell: UITableViewCell {
     var viewModel: TasksListTableViewCellViewModelType! {
         willSet(viewModel) {
             titleLabel.text = viewModel.titleLabel
-            countLabel.text = viewModel.countLabel
+            countLabel.text = viewModel.calculateTasks()
             dateLabel.text = viewModel.dateLabel
         }
     }

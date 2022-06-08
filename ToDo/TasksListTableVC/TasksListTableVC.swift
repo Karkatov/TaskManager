@@ -16,12 +16,13 @@ class TasksListTableVC: UITableViewController {
         super.viewDidLoad()
         viewModel = TasksListTableViewViewModel()
         setTableView()
+        viewModel.delegate = self
     }
     
     private func setTableView() {
         navigationItem.leftBarButtonItem = editButtonItem
         navigationItem.leftBarButtonItem?.title = "Изменить"
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAlert))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAlertForCreateNote))
         navigationItem.rightBarButtonItem = addButton
         view.backgroundColor = .systemGray6
         title = "ToDoLists"
@@ -70,9 +71,7 @@ extension TasksListTableVC {
         deleteAction.image = UIImage(systemName: "trash")
         
         let editAction = UIContextualAction(style: .normal, title: nil) { _, _, complition in
-            self.alertForAddAndUpdateList(self.viewModel.tasksLists[indexPath.row], complition: {
-                tableView.reloadRows(at: [indexPath], with: .automatic)
-            })
+            self.viewModel.updateTask(indexPath)
             complition(true)
         }
         editAction.backgroundColor = .orange
@@ -91,15 +90,17 @@ extension TasksListTableVC {
             self.navigationItem.leftBarButtonItem?.title = "Изменить"
         }
     }
+    @objc func showAlertForCreateNote() {
+        viewModel.createTask()
+    }
 }
 
-extension TasksListTableVC {
-    
-    @objc func showAlert() {
-        alertForAddAndUpdateList()
+extension TasksListTableVC: TasksListDelegate {
+    func updateTableView(_ indexPath: IndexPath) {
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
-    private func alertForAddAndUpdateList(_ tasksList: TasksList? = nil, complition: (() -> Void)? = nil) {
+    func showAlert(_ tasksList: TasksList? = nil, complition: (() -> Void)? = nil) {
         var title = "Новый список задач"
         var doneButtonText = "Сохранить"
         
@@ -119,11 +120,8 @@ extension TasksListTableVC {
             } else {
                 let newTasksList = TasksList()
                 newTasksList.name = newList
-                
-                DispatchQueue.main.async {
-                    StorageManager.saveTasksList(newTasksList)
-                    self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-                }
+                StorageManager.saveTasksList(newTasksList)
+                self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
             }
         }
         
@@ -137,16 +135,5 @@ extension TasksListTableVC {
         alert.addAction(saveAction)
         alert.addAction(cancelActon)
         present(alert, animated: true)
-    }
-    
-    private func checkTasks(_ count: Int) -> String {
-        if [1,21,31,41,51].contains(count) {
-            return "\(count) задача"
-        } else if (2...4).contains(count) {
-            return "\(count) задачи"
-        } else if count == 0 || (5...20).contains(count) {
-            return "\(count) задач"
-        }
-        return "\(count) задач"
     }
 }

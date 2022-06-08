@@ -24,7 +24,7 @@ class TasksTableVC: UITableViewController {
     
     private func setTableView() {
         title = currentTasksList.name
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAlert))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createTask))
         
         navigationItem.rightBarButtonItems = [addButton, editButtonItem]
         navigationItem.rightBarButtonItems?[1].title = "Изменить"
@@ -127,7 +127,7 @@ extension TasksTableVC {
 
 extension TasksTableVC {
     
-    @objc func showAlert() {
+    @objc func createTask() {
         alertForAddAndUpdateTask()
     }
     

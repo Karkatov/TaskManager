@@ -20,6 +20,7 @@
 		FA338E1E281759BC00C2F4A9 /* ToDo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA338E1C281759BC00C2F4A9 /* ToDo.xcdatamodeld */; };
 		FA338E20281759BD00C2F4A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA338E1F281759BD00C2F4A9 /* Assets.xcassets */; };
 		FA338E23281759BD00C2F4A9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA338E21281759BD00C2F4A9 /* LaunchScreen.storyboard */; };
+		FA62C15F2850F0ED0015AB86 /* TasksListDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA62C15E2850F0ED0015AB86 /* TasksListDelegate.swift */; };
 		FA87B39D2846BCD000833F83 /* TasksListTableViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87B39C2846BCD000833F83 /* TasksListTableViewViewModel.swift */; };
 		FA87B39F2846BE0D00833F83 /* TasksListTableViewViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87B39E2846BE0D00833F83 /* TasksListTableViewViewModelType.swift */; };
 		FA87B3A22846C20000833F83 /* TasksListTableViewCellViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87B3A12846C20000833F83 /* TasksListTableViewCellViewModelType.swift */; };
@@ -46,6 +47,7 @@
 		FA338E1F281759BD00C2F4A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA338E22281759BD00C2F4A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FA338E24281759BD00C2F4A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA62C15E2850F0ED0015AB86 /* TasksListDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListDelegate.swift; sourceTree = "<group>"; };
 		FA87B39C2846BCD000833F83 /* TasksListTableViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewViewModel.swift; sourceTree = "<group>"; };
 		FA87B39E2846BE0D00833F83 /* TasksListTableViewViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewViewModelType.swift; sourceTree = "<group>"; };
 		FA87B3A12846C20000833F83 /* TasksListTableViewCellViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewCellViewModelType.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				FA87B39E2846BE0D00833F83 /* TasksListTableViewViewModelType.swift */,
 				FA8983BD284AC2B200EFEFA9 /* TasksTableVCViewModelType.swift */,
 				FA87B3A12846C20000833F83 /* TasksListTableViewCellViewModelType.swift */,
+				FA62C15E2850F0ED0015AB86 /* TasksListDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				FA338E16281759BC00C2F4A9 /* SceneDelegate.swift in Sources */,
 				FA12CEBB281C4AD0003D2F66 /* Task.swift in Sources */,
 				FA338E1E281759BC00C2F4A9 /* ToDo.xcdatamodeld in Sources */,
+				FA62C15F2850F0ED0015AB86 /* TasksListDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
