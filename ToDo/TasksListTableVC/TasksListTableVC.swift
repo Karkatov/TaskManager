@@ -27,7 +27,6 @@ class TasksListTableVC: UITableViewController {
         view.backgroundColor = .systemGray6
         title = "ToDoLists"
         navigationController?.navigationBar.prefersLargeTitles = true
-        // tableView.register(UINib(nibName: "ToDoTableViewCell", bundle: nil), forCellReuseIdentifier: "ToDoTableViewCell")
         tableView.register(TasksListTableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
@@ -54,6 +53,8 @@ extension TasksListTableVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tasksVC = TasksTableVC()
         tasksVC.currentTasksList = viewModel.tasksLists[indexPath.row]
+        print(viewModel.tasksLists[indexPath.row])
+        print(tasksVC.currentTasksList)
         navigationController?.pushViewController(tasksVC, animated: true)
     }
     
@@ -64,14 +65,14 @@ extension TasksListTableVC {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let currentList = viewModel.tasksLists[indexPath.row]
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, _ in
-            StorageManager.deleteTasksList(currentList)
+            self.viewModel.deleteTasksList(indexPath)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         deleteAction.backgroundColor = .systemRed
         deleteAction.image = UIImage(systemName: "trash")
         
         let editAction = UIContextualAction(style: .normal, title: nil) { _, _, complition in
-            self.viewModel.updateTask(indexPath)
+            self.viewModel.updateTasksList(indexPath)
             complition(true)
         }
         editAction.backgroundColor = .orange
@@ -91,11 +92,11 @@ extension TasksListTableVC {
         }
     }
     @objc func showAlertForCreateNote() {
-        viewModel.createTask()
+        viewModel.createTasksList()
     }
 }
 
-extension TasksListTableVC: TasksListDelegate {
+extension TasksListTableVC: TasksListTableViewViewModelDelegate {
     func updateTableView(_ indexPath: IndexPath) {
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
@@ -124,7 +125,6 @@ extension TasksListTableVC: TasksListDelegate {
                 self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
             }
         }
-        
         let cancelActon = UIAlertAction(title: "Отмена", style: .default)
         alert.addTextField { tf in
             tf.placeholder = "Название"

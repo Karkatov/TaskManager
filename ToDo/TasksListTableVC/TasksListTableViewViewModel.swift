@@ -5,16 +5,12 @@
 //  Created by Duxxless on 01.06.2022.
 //
 
-protocol ViewModelDelegate {
-    func showAlert()
-}
-
 import Foundation
 import RealmSwift
 
 class TasksListTableViewViewModel: TasksListTableViewViewModelType {
 
-    var delegate: TasksListDelegate
+    var delegate: TasksListTableViewViewModelDelegate
     
     var tasksLists: Results<TasksList> = realm.objects(TasksList.self).sorted(byKeyPath: "date", ascending: false)
     
@@ -31,12 +27,17 @@ class TasksListTableViewViewModel: TasksListTableViewViewModelType {
         return TasksListTableViewCellViewModel(taskList: taskList)
     }
     
-    func createTask() {
+    func createTasksList() {
         delegate.showAlert(nil, complition: nil)
     }
-    func updateTask(_ indexPath: IndexPath) {
+    
+    func updateTasksList(_ indexPath: IndexPath) {
         delegate.showAlert(tasksLists[indexPath.row]) {
             self.delegate.updateTableView(indexPath)
         }
+    }
+    
+    func deleteTasksList(_ indexPath: IndexPath) {
+        StorageManager.deleteTasksList(tasksLists[indexPath.row])
     }
 }

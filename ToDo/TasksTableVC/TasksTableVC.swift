@@ -10,58 +10,50 @@ import RealmSwift
 
 class TasksTableVC: UITableViewController {
     
-//    var viewModel: 
     var currentTasksList: TasksList!
-    
-    var currentTasks: Results<Task>!
-    var completedTask: Results<Task>!
+    var viewModel: TasksTableVCViewModelType!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        filteringTasks()
+        
+        viewModel = TasksTableViewViewModel(currentTasksList!)
         setTableView()
     }
     
     private func setTableView() {
-        title = currentTasksList.name
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createTask))
+        title = viewModel.tasksList.name
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createTasksList))
         
         navigationItem.rightBarButtonItems = [addButton, editButtonItem]
         navigationItem.rightBarButtonItems?[1].title = "Изменить"
         view.backgroundColor = .systemGray6
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
-    private func filteringTasks() {
-        currentTasks = currentTasksList.tasks.filter("isComplete = false")
-        completedTask = currentTasksList.tasks.filter("isComplete = true")
-    }
     
     private func makeSlashText(_ text:String) -> NSAttributedString {
-     let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: text)
+        let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: text)
         attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
-    return attributeString
+        return attributeString
     }
 }
 
 extension TasksTableVC {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return viewModel.getNumberOfSections()
     }
-    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 0 ? "АКТИВНЫЕ ЗАДАЧИ" : "ВЫПОЛНЕННЫЕ ЗАДАЧИ"
+        return viewModel.getTitleOfSection(section)
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? currentTasks.count : completedTask.count
+        return viewModel.getNumberOfRows(section)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell.init(style: .subtitle, reuseIdentifier: "Cell")
         var task: Task!
-        task = indexPath.section == 0 ? currentTasks[indexPath.row] : completedTask[indexPath.row]
-        
-        
+        task = viewModel.getCurrentOrCompletedTasks(indexPath)
+      
         cell.textLabel?.text = task.name
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         cell.textLabel?.numberOfLines = 0
@@ -81,7 +73,7 @@ extension TasksTableVC {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         var task: Task!
-        task = indexPath.section == 0 ? currentTasks[indexPath.row] : completedTask[indexPath.row]
+        task = viewModel.getCurrentOrCompletedTasks(indexPath)
         
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, _ in
             StorageManager.deleteTask(task)
@@ -91,7 +83,7 @@ extension TasksTableVC {
         deleteAction.image = UIImage(systemName: "trash")
         
         let editAction = UIContextualAction(style: .normal, title: nil) { _, _, complition in
-            self.alertForAddAndUpdateTask(task) {
+            self.showAlert(task){
                 tableView.reloadRows(at: [indexPath], with: .automatic)
             }
             //complition(true)
@@ -101,7 +93,7 @@ extension TasksTableVC {
         
         let doneAction = UIContextualAction(style: .normal, title: nil) { _, _, _ in
             StorageManager.isCompleted(task)
-            self.filteringTasks()
+            // self.filteringTasks()
             tableView.reloadData()
         }
         doneAction.backgroundColor = task.isComplete ? .systemCyan : .systemGreen
@@ -122,17 +114,19 @@ extension TasksTableVC {
             self.navigationItem.rightBarButtonItems?[1].title = "Изменить"
         }
     }
+    
+    @objc func createTasksList() {
+        viewModel.createTask()
+    }
 }
 
 
-extension TasksTableVC {
-    
-    @objc func createTask() {
-        alertForAddAndUpdateTask()
+extension TasksTableVC: TasksTableViewDelegate {
+    func updateTableView(_ indexPath: IndexPath?) {
+        tableView.reloadData()
     }
     
-    private func alertForAddAndUpdateTask(_ task: Task? = nil,
-                                          complition: (() -> Void)? = nil) {
+    func showAlert(_ task: Task?, complition: (() -> Void)?) {
         var title = "Новая задача"
         var doneButton = "Сохранить"
         
@@ -155,7 +149,7 @@ extension TasksTableVC {
                 let newTask = Task()
                 newTask.name = taskName
                 newTask.note = taskNote
-                StorageManager.saveTask(self.currentTasksList, task: newTask)
+                StorageManager.saveTask(self.viewModel.tasksList, task: newTask)
                 self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
             }
         }
@@ -176,5 +170,4 @@ extension TasksTableVC {
         present(alert, animated: true)
     }
 }
-
 

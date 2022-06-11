@@ -8,8 +8,7 @@
 import Foundation
 import UIKit
 
-protocol TasksListDelegate {
+protocol TasksListTableViewViewModelDelegate {
     func updateTableView(_ indexPath: IndexPath)
     func showAlert(_ tasksList: TasksList?, complition: (() -> Void)?)
-    
 }

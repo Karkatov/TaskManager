@@ -5,9 +5,22 @@
 //  Created by Duxxless on 04.06.2022.
 //
 
-import Foundation
+import RealmSwift
 
 protocol TasksTableVCViewModelType {
-    func getNumberOfRows() -> Int
+   
+    var delegate: TasksTableViewDelegate { get set }
     
+    var tasksList: TasksList { get set }
+    var currentTasks: Results<Task>! { get }
+    var completedTask: Results<Task>! { get }
+    
+    func getNumberOfRows(_ section: Int) -> Int
+    func getNumberOfSections() -> Int
+    func getTitleOfSection(_ section: Int) -> String
+    func getCurrentOrCompletedTasks(_ indexPath: IndexPath) -> Task
+    func cellViewModel(forIndexPath indexPath: IndexPath) -> TasksTableViewCellViewModelType?
+    func createTask()
+    func updateTask(_ task: Task)
+    func deleteTask(_ task: Task)
 }
