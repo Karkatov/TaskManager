@@ -9,25 +9,17 @@ import RealmSwift
 
 class TasksTableViewCellViewModel: TasksTableViewCellViewModelProtocol {
     
-    var currentTasks: Results<Task>!
-    var completedTask: Results<Task>!
+    var task: Task
     
-    var currentTasksList: TasksList {
-        willSet {
-            currentTasks = newValue.tasks.filter("isComplete = false")
-            completedTask =  newValue.tasks.filter("isComplete = true")
-        }
+    var titleLabel: String {
+        return task.name
     }
     
-    var titleLabel: String
-    
-    var detailLabel: String
-    
-    func isComplited() {
-    
+    var detailLabel: String {
+        return task.note
     }
     
-    init(_ currentTasksList: TasksList) {
-        self.currentTasksList =  currentTasksList
+    init(_ task: Task) {
+        self.task = task
     }
 }

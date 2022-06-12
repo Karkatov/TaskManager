@@ -30,7 +30,6 @@ class TasksTableViewCell: UITableViewCell {
     }
     
     func setupIsComplete(_ task: Task) {
-        
         if task.isComplete == true {
             detailTextLabel?.isEnabled = false
             textLabel?.isEnabled = false

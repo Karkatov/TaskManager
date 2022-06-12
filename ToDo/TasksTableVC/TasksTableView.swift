@@ -54,20 +54,9 @@ extension TasksTableView {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TasksTableViewCell else { return UITableViewCell() }
         var task: Task!
         task = viewModel.getCurrentOrCompletedTasks(indexPath)
-      
-        cell.textLabel?.text = task.name
-        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        cell.textLabel?.numberOfLines = 0
-        cell.detailTextLabel?.text = task.note
-        cell.detailTextLabel?.numberOfLines = 0
-        cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 18)
-        
-        if task.isComplete == true {
-            cell.detailTextLabel?.isEnabled = false
-            cell.textLabel?.isEnabled = false
-            cell.textLabel?.attributedText = makeSlashText(task.name)
-            cell.detailTextLabel?.attributedText = makeSlashText(task.note)
-        }
+        guard let newCell = viewModel.cellViewModel(forIndexPath: indexPath) else { return UITableViewCell() }
+        cell.viewModel = newCell
+        cell.setupIsComplete(task)
         return cell
     }
     

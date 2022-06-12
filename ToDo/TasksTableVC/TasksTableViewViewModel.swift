@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 class TasksTableViewViewModel: TasksTableViewViewModelProtocol {
- 
+    
     weak var delegate: TasksTableViewDelegate!
     var currentTasks: Results<Task>! {
         return tasksList.tasks.filter("isComplete = false")
@@ -57,7 +57,11 @@ class TasksTableViewViewModel: TasksTableViewViewModelProtocol {
     }
     
     func cellViewModel(forIndexPath indexPath: IndexPath) -> TasksTableViewCellViewModelProtocol? {
-        return TasksTableViewCellViewModelProtocol(tasksList)
+        if indexPath.section == 0 {
+            return TasksTableViewCellViewModel(currentTasks[indexPath.row])
+        } else {
+            return TasksTableViewCellViewModel(completedTask[indexPath.row])
+        }
     }
     
 }
