@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class TasksListTableViewViewModel: TasksListTableViewViewModelType {
+class TasksListTableViewViewModel: TasksListTableViewViewModelProtocol {
 
     var delegate: TasksListTableViewViewModelDelegate
     
@@ -19,10 +19,10 @@ class TasksListTableViewViewModel: TasksListTableViewViewModelType {
         }
     
     init() {
-        self.delegate = TasksListTableVC()
+        self.delegate = TasksListTableView()
     }
     
-    func cellViewModel(forIndexPath indexPath: IndexPath) -> TasksListTableViewCellViewModelType? {
+    func cellViewModel(forIndexPath indexPath: IndexPath) -> TasksListTableViewCellViewModelProtocol? {
         let taskList = tasksLists[indexPath.row]
         return TasksListTableViewCellViewModel(taskList: taskList)
     }

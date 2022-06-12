@@ -9,7 +9,7 @@ import UIKit
 
 class TasksListTableViewCell: UITableViewCell {
     
-    var viewModel: TasksListTableViewCellViewModelType! {
+    var viewModel: TasksListTableViewCellViewModelProtocol! {
         willSet(viewModel) {
             titleLabel.text = viewModel.titleLabel
             countLabel.text = viewModel.calculateTasks()

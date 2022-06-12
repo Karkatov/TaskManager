@@ -7,13 +7,13 @@
 
 import RealmSwift
 
-protocol TasksListTableViewViewModelType {
+protocol TasksListTableViewViewModelProtocol {
     
     var delegate: TasksListTableViewViewModelDelegate { get set }
     
     var numberOfRows: Int { get }
     var tasksLists: Results<TasksList> { get }
-    func cellViewModel(forIndexPath indexPath: IndexPath) -> TasksListTableViewCellViewModelType?
+    func cellViewModel(forIndexPath indexPath: IndexPath) -> TasksListTableViewCellViewModelProtocol?
     func createTasksList()
     func updateTasksList(_ indexPath: IndexPath)
     func deleteTasksList(_ indexPath: IndexPath)

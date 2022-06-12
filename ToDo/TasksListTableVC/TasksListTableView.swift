@@ -8,9 +8,9 @@
 import UIKit
 import RealmSwift
 
-class TasksListTableVC: UITableViewController {
+class TasksListTableView: UITableViewController {
     
-    var viewModel: TasksListTableViewViewModelType!
+    var viewModel: TasksListTableViewViewModelProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,7 @@ class TasksListTableVC: UITableViewController {
     }
 }
 
-extension TasksListTableVC {
+extension TasksListTableView {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfRows
@@ -51,10 +51,8 @@ extension TasksListTableVC {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let tasksVC = TasksTableVC()
+        let tasksVC = TasksTableView()
         tasksVC.currentTasksList = viewModel.tasksLists[indexPath.row]
-        print(viewModel.tasksLists[indexPath.row])
-        print(tasksVC.currentTasksList)
         navigationController?.pushViewController(tasksVC, animated: true)
     }
     
@@ -63,7 +61,6 @@ extension TasksListTableVC {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let currentList = viewModel.tasksLists[indexPath.row]
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, _ in
             self.viewModel.deleteTasksList(indexPath)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -96,7 +93,7 @@ extension TasksListTableVC {
     }
 }
 
-extension TasksListTableVC: TasksListTableViewViewModelDelegate {
+extension TasksListTableView: TasksListTableViewViewModelDelegate {
     func updateTableView(_ indexPath: IndexPath) {
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }

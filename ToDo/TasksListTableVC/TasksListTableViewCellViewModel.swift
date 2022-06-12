@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TasksListTableViewCellViewModel: TasksListTableViewCellViewModelType {
+class TasksListTableViewCellViewModel: TasksListTableViewCellViewModelProtocol {
     
     private var taskList: TasksList!
     

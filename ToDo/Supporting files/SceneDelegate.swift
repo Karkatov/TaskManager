@@ -53,7 +53,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func setWindow(_ scene: UIWindowScene) -> UIWindow {
         let window = UIWindow(windowScene: scene)
         let navigationController = UINavigationController()
-        let todoTableVC = TasksListTableVC()
+        let todoTableVC = TasksListTableView()
         navigationController.viewControllers = [todoTableVC]
         window.rootViewController = navigationController
         window.makeKeyAndVisible()

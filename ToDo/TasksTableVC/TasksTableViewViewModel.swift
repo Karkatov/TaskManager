@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class TasksTableViewViewModel: TasksTableVCViewModelType {
+class TasksTableViewViewModel: TasksTableVCViewModelProtocol {
  
     var delegate: TasksTableViewDelegate
     var currentTasks: Results<Task>! {
@@ -23,7 +23,7 @@ class TasksTableViewViewModel: TasksTableVCViewModelType {
     
     
     init(_ tasksList: TasksList) {
-        self.delegate = TasksTableVC()
+        self.delegate = TasksTableView()
         self.tasksList = tasksList
     }
     
@@ -58,7 +58,7 @@ class TasksTableViewViewModel: TasksTableVCViewModelType {
         StorageManager.deleteTask(task)
     }
     
-    func cellViewModel(forIndexPath indexPath: IndexPath) -> TasksTableViewCellViewModelType? {
+    func cellViewModel(forIndexPath indexPath: IndexPath) -> TasksTableViewCellViewModelProtocol? {
         return TasksTableViewCellViewModel(tasksList)
     }
     

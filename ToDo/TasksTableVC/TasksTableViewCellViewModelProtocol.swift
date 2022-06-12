@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol TasksTableViewCellViewModelType {
+protocol TasksTableViewCellViewModelProtocol {
     
 }

@@ -7,7 +7,7 @@
 
 import RealmSwift
 
-class TasksTableViewCellViewModel: TasksTableViewCellViewModelType {
+class TasksTableViewCellViewModel: TasksTableViewCellViewModelProtocol {
     
     var currentTasks: Results<Task>!
     var completedTask: Results<Task>!

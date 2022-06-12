@@ -7,7 +7,7 @@
 
 import RealmSwift
 
-protocol TasksTableVCViewModelType {
+protocol TasksTableVCViewModelProtocol {
    
     var delegate: TasksTableViewDelegate { get set }
     
@@ -19,7 +19,7 @@ protocol TasksTableVCViewModelType {
     func getNumberOfSections() -> Int
     func getTitleOfSection(_ section: Int) -> String
     func getCurrentOrCompletedTasks(_ indexPath: IndexPath) -> Task
-    func cellViewModel(forIndexPath indexPath: IndexPath) -> TasksTableViewCellViewModelType?
+    func cellViewModel(forIndexPath indexPath: IndexPath) -> TasksTableViewCellViewModelProtocol?
     func createTask()
     func updateTask(_ task: Task)
     func deleteTask(_ task: Task)

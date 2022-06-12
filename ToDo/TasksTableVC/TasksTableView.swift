@@ -8,15 +8,16 @@
 import UIKit
 import RealmSwift
 
-class TasksTableVC: UITableViewController {
+class TasksTableView: UITableViewController {
     
     var currentTasksList: TasksList!
-    var viewModel: TasksTableVCViewModelType!
+    var viewModel: TasksTableVCViewModelProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = TasksTableViewViewModel(currentTasksList!)
+        viewModel = TasksTableViewViewModel(currentTasksList)
+        viewModel.delegate = self
         setTableView()
     }
     
@@ -37,7 +38,7 @@ class TasksTableVC: UITableViewController {
     }
 }
 
-extension TasksTableVC {
+extension TasksTableView {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.getNumberOfSections()
@@ -121,7 +122,7 @@ extension TasksTableVC {
 }
 
 
-extension TasksTableVC: TasksTableViewDelegate {
+extension TasksTableView: TasksTableViewDelegate {
     func updateTableView(_ indexPath: IndexPath?) {
         tableView.reloadData()
     }
