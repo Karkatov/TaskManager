@@ -9,7 +9,7 @@ import RealmSwift
 
 protocol TasksListTableViewViewModelProtocol {
     
-    var delegate: TasksListTableViewViewModelDelegate { get set }
+    var delegate: (TasksListTableViewViewModelDelegate)! { get set }
     
     var numberOfRows: Int { get }
     var tasksLists: Results<TasksList> { get }

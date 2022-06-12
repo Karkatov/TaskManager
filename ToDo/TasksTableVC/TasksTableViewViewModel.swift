@@ -8,9 +8,9 @@
 import Foundation
 import RealmSwift
 
-class TasksTableViewViewModel: TasksTableVCViewModelProtocol {
+class TasksTableViewViewModel: TasksTableViewViewModelProtocol {
  
-    var delegate: TasksTableViewDelegate
+    weak var delegate: TasksTableViewDelegate!
     var currentTasks: Results<Task>! {
         return tasksList.tasks.filter("isComplete = false")
     }
@@ -19,8 +19,6 @@ class TasksTableViewViewModel: TasksTableVCViewModelProtocol {
     }
     
     var tasksList: TasksList
-    
-    
     
     init(_ tasksList: TasksList) {
         self.delegate = TasksTableView()
@@ -48,9 +46,9 @@ class TasksTableViewViewModel: TasksTableVCViewModelProtocol {
         delegate.showAlert(nil, complition: nil)
     }
     
-    func updateTask(_ task: Task) {
+    func updateTask(_ task: Task, indexPath: IndexPath) {
         delegate.showAlert(task) {
-            self.delegate.updateTableView(nil)
+            self.delegate.updateTableView(indexPath)
         }
     }
     
@@ -59,7 +57,7 @@ class TasksTableViewViewModel: TasksTableVCViewModelProtocol {
     }
     
     func cellViewModel(forIndexPath indexPath: IndexPath) -> TasksTableViewCellViewModelProtocol? {
-        return TasksTableViewCellViewModel(tasksList)
+        return TasksTableViewCellViewModelProtocol(tasksList)
     }
     
 }

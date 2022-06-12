@@ -10,7 +10,7 @@ import RealmSwift
 
 class TasksListTableViewViewModel: TasksListTableViewViewModelProtocol {
 
-    var delegate: TasksListTableViewViewModelDelegate
+    weak var delegate: TasksListTableViewViewModelDelegate!
     
     var tasksLists: Results<TasksList> = realm.objects(TasksList.self).sorted(byKeyPath: "date", ascending: false)
     

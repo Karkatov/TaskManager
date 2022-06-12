@@ -11,7 +11,7 @@ import RealmSwift
 class TasksTableView: UITableViewController {
     
     var currentTasksList: TasksList!
-    var viewModel: TasksTableVCViewModelProtocol!
+    var viewModel: TasksTableViewViewModelProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ class TasksTableView: UITableViewController {
         navigationItem.rightBarButtonItems = [addButton, editButtonItem]
         navigationItem.rightBarButtonItems?[1].title = "Изменить"
         view.backgroundColor = .systemGray6
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(TasksTableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
     private func makeSlashText(_ text:String) -> NSAttributedString {
@@ -51,7 +51,7 @@ extension TasksTableView {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell.init(style: .subtitle, reuseIdentifier: "Cell")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TasksTableViewCell else { return UITableViewCell() }
         var task: Task!
         task = viewModel.getCurrentOrCompletedTasks(indexPath)
       
@@ -84,10 +84,8 @@ extension TasksTableView {
         deleteAction.image = UIImage(systemName: "trash")
         
         let editAction = UIContextualAction(style: .normal, title: nil) { _, _, complition in
-            self.showAlert(task){
-                tableView.reloadRows(at: [indexPath], with: .automatic)
-            }
-            //complition(true)
+            self.viewModel.updateTask(task, indexPath: indexPath)
+            complition(true)
         }
         editAction.backgroundColor = .orange
         editAction.image = UIImage(systemName: "square.and.pencil")
@@ -121,10 +119,9 @@ extension TasksTableView {
     }
 }
 
-
 extension TasksTableView: TasksTableViewDelegate {
-    func updateTableView(_ indexPath: IndexPath?) {
-        tableView.reloadData()
+    func updateTableView(_ indexPath: IndexPath) {
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
     func showAlert(_ task: Task?, complition: (() -> Void)?) {

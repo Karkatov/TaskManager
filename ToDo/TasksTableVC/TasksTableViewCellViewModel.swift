@@ -18,6 +18,15 @@ class TasksTableViewCellViewModel: TasksTableViewCellViewModelProtocol {
             completedTask =  newValue.tasks.filter("isComplete = true")
         }
     }
+    
+    var titleLabel: String
+    
+    var detailLabel: String
+    
+    func isComplited() {
+    
+    }
+    
     init(_ currentTasksList: TasksList) {
         self.currentTasksList =  currentTasksList
     }
