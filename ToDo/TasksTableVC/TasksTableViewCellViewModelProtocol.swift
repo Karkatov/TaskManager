@@ -8,5 +8,6 @@
 import Foundation
 
 protocol TasksTableViewCellViewModelProtocol {
-    
+    var titleLabel: String { get }
+    var detailLabel: String { get }
 }
