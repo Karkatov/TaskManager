@@ -60,7 +60,7 @@
 		FA87B3A12846C20000833F83 /* TasksListTableViewCellViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewCellViewModelProtocol.swift; sourceTree = "<group>"; };
 		FA87B3A32846C38C00833F83 /* TasksListTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		FA8983BA284AC1E100EFEFA9 /* TasksTableViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewViewModel.swift; sourceTree = "<group>"; };
-		FA8983BD284AC2B200EFEFA9 /* TasksTableViewViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TasksTableViewViewModelProtocol.swift; path = ToDo/TasksTableVC/TasksTableViewViewModelProtocol.swift; sourceTree = SOURCE_ROOT; };
+		FA8983BD284AC2B200EFEFA9 /* TasksTableViewViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TasksTableViewViewModelProtocol.swift; path = ToDo/Protocols/TasksTableViewViewModelProtocol.swift; sourceTree = SOURCE_ROOT; };
 		FACDCDBD28551EDA00D387E3 /* TasksTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -128,6 +128,12 @@
 		FA87B3A02846BECD00833F83 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				FA87B39E2846BE0D00833F83 /* TasksListTableViewViewModelProtocol.swift */,
+				FA87B3A12846C20000833F83 /* TasksListTableViewCellViewModelProtocol.swift */,
+				FA62C15E2850F0ED0015AB86 /* TasksListTableViewViewModelDelegate.swift */,
+				FA8983BD284AC2B200EFEFA9 /* TasksTableViewViewModelProtocol.swift */,
+				FA62C160285114C70015AB86 /* TasksTableViewCellViewModelProtocol.swift */,
+				FA62C162285115210015AB86 /* TasksTableViewDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -138,9 +144,6 @@
 				FA338E17281759BC00C2F4A9 /* TasksListTableView.swift */,
 				FA87B39C2846BCD000833F83 /* TasksListTableViewViewModel.swift */,
 				FA87B3A32846C38C00833F83 /* TasksListTableViewCellViewModel.swift */,
-				FA87B39E2846BE0D00833F83 /* TasksListTableViewViewModelProtocol.swift */,
-				FA87B3A12846C20000833F83 /* TasksListTableViewCellViewModelProtocol.swift */,
-				FA62C15E2850F0ED0015AB86 /* TasksListTableViewViewModelDelegate.swift */,
 			);
 			path = TasksListTableVC;
 			sourceTree = "<group>";
@@ -151,9 +154,6 @@
 				FA12CEC2281C7040003D2F66 /* TasksTableView.swift */,
 				FA8983BA284AC1E100EFEFA9 /* TasksTableViewViewModel.swift */,
 				FACDCDBD28551EDA00D387E3 /* TasksTableViewCellViewModel.swift */,
-				FA8983BD284AC2B200EFEFA9 /* TasksTableViewViewModelProtocol.swift */,
-				FA62C160285114C70015AB86 /* TasksTableViewCellViewModelProtocol.swift */,
-				FA62C162285115210015AB86 /* TasksTableViewDelegate.swift */,
 			);
 			path = TasksTableVC;
 			sourceTree = "<group>";

@@ -56,12 +56,13 @@ extension TasksTableView {
         task = viewModel.getCurrentOrCompletedTasks(indexPath)
         guard let newCell = viewModel.cellViewModel(forIndexPath: indexPath) else { return UITableViewCell() }
         cell.viewModel = newCell
-        cell.setupIsComplete(task)
+        cell.setupIsComplete()
         return cell
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
+       
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TasksTableViewCell
         var task: Task!
         task = viewModel.getCurrentOrCompletedTasks(indexPath)
         
@@ -81,7 +82,6 @@ extension TasksTableView {
         
         let doneAction = UIContextualAction(style: .normal, title: nil) { _, _, _ in
             StorageManager.isCompleted(task)
-            // self.filteringTasks()
             tableView.reloadData()
         }
         doneAction.backgroundColor = task.isComplete ? .systemCyan : .systemGreen

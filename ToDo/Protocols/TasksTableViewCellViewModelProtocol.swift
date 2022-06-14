@@ -5,9 +5,10 @@
 //  Created by Duxxless on 08.06.2022.
 //
 
-import Foundation
+import UIKit
 
 protocol TasksTableViewCellViewModelProtocol {
-    var titleLabel: String { get }
-    var detailLabel: String { get }
+    var title: String { get }
+    var note: String { get }
+    var isComplete: Bool { get }
 }
