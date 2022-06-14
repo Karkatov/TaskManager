@@ -11,12 +11,16 @@ class TasksTableViewCellViewModel: TasksTableViewCellViewModelProtocol {
     
     var task: Task
     
-    var titleLabel: String {
+    var title: String {
         return task.name
     }
     
-    var detailLabel: String {
+    var note: String {
         return task.note
+    }
+    
+    var isComplete: Bool {
+        return task.isComplete
     }
     
     init(_ task: Task) {

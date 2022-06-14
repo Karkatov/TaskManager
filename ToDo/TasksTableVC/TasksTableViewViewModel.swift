@@ -59,9 +59,10 @@ class TasksTableViewViewModel: TasksTableViewViewModelProtocol {
     func cellViewModel(forIndexPath indexPath: IndexPath) -> TasksTableViewCellViewModelProtocol? {
         if indexPath.section == 0 {
             return TasksTableViewCellViewModel(currentTasks[indexPath.row])
-        } else {
+        } else if indexPath.section == 1 {
             return TasksTableViewCellViewModel(completedTask[indexPath.row])
         }
+        return nil
     }
     
 }
