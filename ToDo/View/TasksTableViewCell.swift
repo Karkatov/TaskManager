@@ -13,11 +13,12 @@ class TasksTableViewCell: UITableViewCell {
         willSet(viewModel) {
             textLabel?.text = viewModel.title
             detailTextLabel?.text = viewModel.note
+            
         }
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .subtitle, reuseIdentifier: "Cell")
+        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         
         textLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         textLabel?.numberOfLines = 0
@@ -29,20 +30,14 @@ class TasksTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupIsComplete() {
+    func setupIsComplete()  {
         if viewModel.isComplete == true {
-//            detailTextLabel?.isEnabled = false
-//            textLabel?.isEnabled = false
-            //textLabel?.attributedText = makeSlashText(viewModel.title)
-            //detailTextLabel?.attributedText = makeSlashText(viewModel.note)
-            textLabel?.textColor = .systemRed
-            detailTextLabel?.textColor = .systemRed
-            self.backgroundColor = .systemGray5
+            detailTextLabel?.isEnabled = false
+            textLabel?.isEnabled = false
+
         } else if viewModel.isComplete == false {
             detailTextLabel?.isEnabled = true
             textLabel?.isEnabled = true
-            textLabel?.textColor = .systemBlue
-            detailTextLabel?.textColor = .systemBlue
         }
     }
     

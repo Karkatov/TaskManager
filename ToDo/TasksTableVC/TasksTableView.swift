@@ -12,13 +12,16 @@ class TasksTableView: UITableViewController {
     
     var currentTasksList: TasksList!
     var viewModel: TasksTableViewViewModelProtocol!
+    var searchController: UISearchController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         viewModel = TasksTableViewViewModel(currentTasksList)
         viewModel.delegate = self
+        setSearchController()
         setTableView()
+        
     }
     
     private func setTableView() {
@@ -36,8 +39,20 @@ class TasksTableView: UITableViewController {
         attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
         return attributeString
     }
+    
+    private func setSearchController() {
+        searchController = UISearchController()
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+        searchController.searchBar.placeholder = "Поиск"
+        searchController.definesPresentationContext = true
+    }
+    
 }
 
+// MARK: - Metods UITableViewDataSource and UITableViewDelegate
 extension TasksTableView {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -51,21 +66,16 @@ extension TasksTableView {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TasksTableViewCell else { return UITableViewCell() }
-        var task: Task!
-        task = viewModel.getCurrentOrCompletedTasks(indexPath)
-        guard let newCell = viewModel.cellViewModel(forIndexPath: indexPath) else { return UITableViewCell() }
-        cell.viewModel = newCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TasksTableViewCell else { return UITableViewCell()
+        }
+        cell.viewModel = viewModel.cellViewModel(forIndexPath: indexPath)
         cell.setupIsComplete()
         return cell
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-       
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TasksTableViewCell
-        var task: Task!
-        task = viewModel.getCurrentOrCompletedTasks(indexPath)
-        
+
+        let task = viewModel.getCurrentOrCompletedTasks(indexPath)
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, _ in
             StorageManager.deleteTask(task)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -107,7 +117,7 @@ extension TasksTableView {
         viewModel.createTask()
     }
 }
-
+// MARK: - Metods TasksTableViewDelegate
 extension TasksTableView: TasksTableViewDelegate {
     func updateTableView(_ indexPath: IndexPath) {
         tableView.reloadRows(at: [indexPath], with: .automatic)
@@ -155,6 +165,27 @@ extension TasksTableView: TasksTableViewDelegate {
         alert.addAction(saveAction)
         alert.addAction(cancelActon)
         present(alert, animated: true)
+    }
+}
+
+// MARK: - Metods UISearchResultsUpdating
+extension TasksTableView: UISearchResultsUpdating, UISearchBarDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        if let text = searchController.searchBar.text, text != "" {
+            viewModel.searchBarIsEmpty = false
+            viewModel.filteredTasks(text)
+        } else {
+            viewModel.searchBarIsEmpty = true
+            viewModel.filteredTasks(nil)
+        }
+        tableView.reloadData()
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        if let cancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
+            cancelButton.setTitle("Отмена", for: .normal)
+        }
+        return true
     }
 }
 
