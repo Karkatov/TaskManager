@@ -1,9 +1,3 @@
-//
-//  TasksTableViewViewModel.swift
-//  ToDo
-//
-//  Created by Duxxless on 04.06.2022.
-//
 
 import Foundation
 import RealmSwift
@@ -25,13 +19,12 @@ class TasksTableViewViewModel: TasksTableViewViewModelProtocol {
             completedTask = tasksList.tasks.filter("isComplete = true")
         } else {
             guard let text = searchText else { return }
-        currentTasks = currentTasks.filter("name CONTAINS[c] '\(text)'")
-        completedTask = completedTask.filter("name CONTAINS[c] '\(text)'")
+            currentTasks = currentTasks.filter("name CONTAINS[c] '\(text)'")
+            completedTask = completedTask.filter("name CONTAINS[c] '\(text)'")
         }
     }
     
     init(_ tasksList: TasksList) {
-        self.delegate = TasksTableView()
         self.tasksList = tasksList
         currentTasks = tasksList.tasks.filter("isComplete = false")
         completedTask = tasksList.tasks.filter("isComplete = true")
@@ -75,5 +68,4 @@ class TasksTableViewViewModel: TasksTableViewViewModelProtocol {
         }
         return nil
     }
-    
 }

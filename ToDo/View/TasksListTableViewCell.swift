@@ -1,9 +1,3 @@
-//
-//  TableViewCell.swift
-//  ToDo
-//
-//  Created by Duxxless on 28.04.2022.
-//
 
 import UIKit
 
@@ -19,9 +13,8 @@ class TasksListTableViewCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
         label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 25)
+        label.font = UIFont.boldSystemFont(ofSize: 21)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -59,7 +52,7 @@ class TasksListTableViewCell: UITableViewCell {
         textStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(textStack)
         view.addSubview(dateLabel)
-       
+        
         NSLayoutConstraint.activate([
             textStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
             textStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
@@ -71,6 +64,4 @@ class TasksListTableViewCell: UITableViewCell {
             dateLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
         ])
     }
-    
-    
 }

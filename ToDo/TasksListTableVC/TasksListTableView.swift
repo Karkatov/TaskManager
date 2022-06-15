@@ -1,9 +1,3 @@
-//
-//  ViewController.swift
-//  ToDo
-//
-//  Created by Duxxless on 26.04.2022.
-//
 
 import UIKit
 import RealmSwift
@@ -27,7 +21,7 @@ class TasksListTableView: UITableViewController {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAlertForCreateNote))
         navigationItem.rightBarButtonItem = addButton
         view.backgroundColor = .systemGray6
-        title = "ToDoLists"
+        title = "Мои заметки"
         navigationController?.navigationBar.prefersLargeTitles = true
         tableView.register(TasksListTableViewCell.self, forCellReuseIdentifier: "Cell")
     }
@@ -91,6 +85,7 @@ extension TasksListTableView {
         }
     }
     @objc func showAlertForCreateNote() {
+        tableView.isEditing = false
         viewModel.createTasksList()
     }
     private func setSearchController() {
@@ -170,12 +165,13 @@ extension TasksListTableView: UISearchResultsUpdating, UISearchBarDelegate {
 }
 
 extension TasksListTableView: UITextFieldDelegate {
-    func textFieldDidChangeSelection(_ textField: UITextField) {
-        let capitilazideText = textField.text?.capitalized
-        textField.text = capitilazideText
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard textField.text?.isEmpty == true else { return true }
+        textField.text = string.uppercased()
+        return false
     }
 }
-
 
 
 

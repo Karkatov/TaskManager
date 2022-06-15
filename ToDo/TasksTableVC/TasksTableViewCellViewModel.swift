@@ -1,9 +1,3 @@
-//
-//  TasksTableViewCellViewModel.swift
-//  ToDo
-//
-//  Created by Duxxless on 11.06.2022.
-//
 
 import RealmSwift
 

@@ -1,9 +1,3 @@
-//
-//  TasksTableViewController.swift
-//  ToDo
-//
-//  Created by Duxxless on 29.04.2022.
-//
 
 import UIKit
 import RealmSwift
@@ -72,7 +66,7 @@ extension TasksTableView {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-
+        
         let task = viewModel.getCurrentOrCompletedTasks(indexPath)
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, _ in
             StorageManager.deleteTask(task)
@@ -112,6 +106,7 @@ extension TasksTableView {
     }
     
     @objc func createTasksList() {
+        tableView.isEditing = false
         viewModel.createTask()
     }
 }
@@ -190,9 +185,10 @@ extension TasksTableView: UISearchResultsUpdating, UISearchBarDelegate {
 }
 
 extension TasksTableView: UITextFieldDelegate {
-    func textFieldDidChangeSelection(_ textField: UITextField) {
-        let capitilazideText = textField.text?.capitalized
-        textField.text = capitilazideText
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard textField.text?.isEmpty == true else { return true }
+        textField.text = string.uppercased()
+        return false
     }
 }
 

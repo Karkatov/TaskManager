@@ -1,9 +1,3 @@
-//
-//  ViewModel.swift
-//  ToDo
-//
-//  Created by Duxxless on 01.06.2022.
-//
 
 import Foundation
 import RealmSwift
@@ -12,26 +6,12 @@ class TasksListTableViewViewModel: TasksListTableViewViewModelProtocol {
     
     var searchBarIsEmpty = true
     
-    func filteredTasks(_ searchText: String?) {
-        if searchBarIsEmpty {
-            tasksLists = realm.objects(TasksList.self).sorted(byKeyPath: "date", ascending: false)
-        } else {
-            guard let text = searchText else { return }
-            tasksLists = tasksLists.filter("name CONTAINS[c] '\(text)'")
-        }
-    }
-    
-
     weak var delegate: TasksListTableViewViewModelDelegate!
     
     var tasksLists: Results<TasksList> = realm.objects(TasksList.self).sorted(byKeyPath: "date", ascending: false)
     
     var numberOfRows: Int {
-            return tasksLists.count
-        }
-    
-    init() {
-        self.delegate = TasksListTableView()
+        return tasksLists.count
     }
     
     func cellViewModel(forIndexPath indexPath: IndexPath) -> TasksListTableViewCellViewModelProtocol? {
@@ -51,5 +31,14 @@ class TasksListTableViewViewModel: TasksListTableViewViewModelProtocol {
     
     func deleteTasksList(_ indexPath: IndexPath) {
         StorageManager.deleteTasksList(tasksLists[indexPath.row])
+    }
+    
+    func filteredTasks(_ searchText: String?) {
+        if searchBarIsEmpty {
+            tasksLists = realm.objects(TasksList.self).sorted(byKeyPath: "date", ascending: false)
+        } else {
+            guard let text = searchText else { return }
+            tasksLists = tasksLists.filter("name CONTAINS[c] '\(text)'")
+        }
     }
 }

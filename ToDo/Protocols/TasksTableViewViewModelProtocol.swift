@@ -1,14 +1,9 @@
-//
-//  TasksTableVCViewModelType.swift
-//  ToDo
-//
-//  Created by Duxxless on 04.06.2022.
-//
+
 
 import RealmSwift
 
 protocol TasksTableViewViewModelProtocol {
-   
+    
     var delegate: (TasksTableViewDelegate)! { get set }
     var tasksList: TasksList { get set }
     var currentTasks: Results<Task>! { get set }

@@ -1,9 +1,4 @@
-//
-//  TasksTableViewCell.swift
-//  ToDo
-//
-//  Created by Duxxless on 13.06.2022.
-//
+
 
 import UIKit
 
@@ -34,7 +29,7 @@ class TasksTableViewCell: UITableViewCell {
         if viewModel.isComplete == true {
             detailTextLabel?.isEnabled = false
             textLabel?.isEnabled = false
-
+            
         } else if viewModel.isComplete == false {
             detailTextLabel?.isEnabled = true
             textLabel?.isEnabled = true

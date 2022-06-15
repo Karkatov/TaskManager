@@ -1,9 +1,3 @@
-//
-//  Task.swift
-//  ToDo
-//
-//  Created by Duxxless on 29.04.2022.
-//
 
 
 import RealmSwift

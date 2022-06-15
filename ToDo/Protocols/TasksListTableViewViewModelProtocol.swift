@@ -1,9 +1,4 @@
-//
-//  Protocols.swift
-//  ToDo
-//
-//  Created by Duxxless on 01.06.2022.
-//
+
 
 import RealmSwift
 
