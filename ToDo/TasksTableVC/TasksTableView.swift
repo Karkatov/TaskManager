@@ -16,12 +16,10 @@ class TasksTableView: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         viewModel = TasksTableViewViewModel(currentTasksList)
         viewModel.delegate = self
         setSearchController()
         setTableView()
-        
     }
     
     private func setTableView() {
@@ -162,6 +160,8 @@ extension TasksTableView: TasksTableViewDelegate {
         }
         nameTextField = alert.textFields?[0]
         noteTextField = alert.textFields?[1]
+        nameTextField.delegate = self
+        noteTextField.delegate = self
         alert.addAction(saveAction)
         alert.addAction(cancelActon)
         present(alert, animated: true)
@@ -186,6 +186,13 @@ extension TasksTableView: UISearchResultsUpdating, UISearchBarDelegate {
             cancelButton.setTitle("Отмена", for: .normal)
         }
         return true
+    }
+}
+
+extension TasksTableView: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        let capitilazideText = textField.text?.capitalized
+        textField.text = capitilazideText
     }
 }
 

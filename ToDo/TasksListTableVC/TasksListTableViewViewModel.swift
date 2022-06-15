@@ -9,6 +9,18 @@ import Foundation
 import RealmSwift
 
 class TasksListTableViewViewModel: TasksListTableViewViewModelProtocol {
+    
+    var searchBarIsEmpty = true
+    
+    func filteredTasks(_ searchText: String?) {
+        if searchBarIsEmpty {
+            tasksLists = realm.objects(TasksList.self).sorted(byKeyPath: "date", ascending: false)
+        } else {
+            guard let text = searchText else { return }
+            tasksLists = tasksLists.filter("name CONTAINS[c] '\(text)'")
+        }
+    }
+    
 
     weak var delegate: TasksListTableViewViewModelDelegate!
     

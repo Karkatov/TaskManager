@@ -11,12 +11,14 @@ import RealmSwift
 class TasksListTableView: UITableViewController {
     
     var viewModel: TasksListTableViewViewModelProtocol!
+    var searchController: UISearchController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = TasksListTableViewViewModel()
-        setTableView()
         viewModel.delegate = self
+        setSearchController()
+        setTableView()
     }
     
     private func setTableView() {
@@ -91,6 +93,15 @@ extension TasksListTableView {
     @objc func showAlertForCreateNote() {
         viewModel.createTasksList()
     }
+    private func setSearchController() {
+        searchController = UISearchController()
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+        searchController.searchBar.placeholder = "Поиск"
+        searchController.definesPresentationContext = true
+    }
 }
 
 extension TasksListTableView: TasksListTableViewViewModelDelegate {
@@ -129,8 +140,42 @@ extension TasksListTableView: TasksListTableViewViewModelDelegate {
             tf.text = nameList
         }
         alertTextField = alert.textFields?.first
+        alertTextField.delegate = self
         alert.addAction(saveAction)
         alert.addAction(cancelActon)
         present(alert, animated: true)
     }
 }
+
+// MARK: - Metods UISearchResultsUpdating
+extension TasksListTableView: UISearchResultsUpdating, UISearchBarDelegate {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        if let text = searchController.searchBar.text, text != "" {
+            viewModel.searchBarIsEmpty = false
+            viewModel.filteredTasks(text)
+        } else {
+            viewModel.searchBarIsEmpty = true
+            viewModel.filteredTasks(nil)
+        }
+        tableView.reloadData()
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        if let cancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
+            cancelButton.setTitle("Отмена", for: .normal)
+        }
+        return true
+    }
+}
+
+extension TasksListTableView: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        let capitilazideText = textField.text?.capitalized
+        textField.text = capitilazideText
+    }
+}
+
+
+
+
