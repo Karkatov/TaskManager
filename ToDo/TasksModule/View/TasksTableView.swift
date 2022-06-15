@@ -19,9 +19,11 @@ class TasksTableView: UITableViewController {
     private func setTableView() {
         title = viewModel.tasksList.name
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createTasksList))
-        
+        addButton.tintColor = .systemGreen
+        editButtonItem.image = UIImage(systemName: "square.and.pencil")
+        editButtonItem.tintColor = .systemOrange
         navigationItem.rightBarButtonItems = [addButton, editButtonItem]
-        navigationItem.rightBarButtonItems?[1].title = "Изменить"
+        //navigationItem.rightBarButtonItems?[1].title = "Изменить"
         view.backgroundColor = .systemGray6
         tableView.register(TasksTableViewCell.self, forCellReuseIdentifier: "Cell")
     }
@@ -39,6 +41,7 @@ class TasksTableView: UITableViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
         searchController.searchBar.placeholder = "Поиск"
+        searchController.searchBar.setValue("Отмена", forKey:"cancelButtonText")
         searchController.definesPresentationContext = true
     }
     
@@ -50,11 +53,24 @@ extension TasksTableView {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.getNumberOfSections()
     }
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return viewModel.getTitleOfSection(section)
-    }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.getNumberOfRows(section)
+    }
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let view = UIView()
+        view.backgroundColor = .systemGray6
+        let label = UILabel()
+        label.text = viewModel.getTitleOfSection(section)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.frame = CGRect(x: 15, y: view.frame.height / 2, width: 300, height: 25)
+        if label.text == "АКТИВНЫЕ ЗАДАЧИ" {
+            label.textColor = .systemGreen
+        } else {
+            label.textColor = .systemRed
+        }
+        view.addSubview(label)
+        return view
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -103,6 +119,7 @@ extension TasksTableView {
             tableView.endEditing(true)
             self.navigationItem.rightBarButtonItems?[1].title = "Изменить"
         }
+        
     }
     
     @objc func createTasksList() {

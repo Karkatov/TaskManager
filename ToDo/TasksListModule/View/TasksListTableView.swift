@@ -17,11 +17,13 @@ class TasksListTableView: UITableViewController {
     
     private func setTableView() {
         navigationItem.leftBarButtonItem = editButtonItem
-        navigationItem.leftBarButtonItem?.title = "Изменить"
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAlertForCreateNote))
+        addButton.tintColor = .systemGreen
+        editButtonItem.image = UIImage(systemName: "square.and.pencil")
+        editButtonItem.tintColor = .systemOrange
         navigationItem.rightBarButtonItem = addButton
         view.backgroundColor = .systemGray6
-        title = "Мои заметки"
+        title = "Заметки"
         navigationController?.navigationBar.prefersLargeTitles = true
         tableView.register(TasksListTableViewCell.self, forCellReuseIdentifier: "Cell")
     }
@@ -29,6 +31,10 @@ class TasksListTableView: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+    }
+    
+    func toogleCompletion( _ cell: UITableViewCell, isCompleted: Bool) {
+        cell.accessoryType = isCompleted ? .checkmark : .none
     }
 }
 
@@ -96,6 +102,7 @@ extension TasksListTableView {
         navigationItem.searchController = searchController
         searchController.searchBar.placeholder = "Поиск"
         searchController.definesPresentationContext = true
+        searchController.searchBar.setValue("Отмена", forKey:"cancelButtonText")
     }
 }
 
@@ -154,13 +161,6 @@ extension TasksListTableView: UISearchResultsUpdating, UISearchBarDelegate {
             viewModel.filteredTasks(nil)
         }
         tableView.reloadData()
-    }
-    
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        if let cancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
-            cancelButton.setTitle("Отмена", for: .normal)
-        }
-        return true
     }
 }
 

@@ -8,17 +8,16 @@ class TasksTableViewCell: UITableViewCell {
         willSet(viewModel) {
             textLabel?.text = viewModel.title
             detailTextLabel?.text = viewModel.note
-            
         }
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-        
-        textLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        tintColor = .gray
+        textLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         textLabel?.numberOfLines = 0
         detailTextLabel?.numberOfLines = 0
-        detailTextLabel?.font = UIFont.systemFont(ofSize: 18)
+        detailTextLabel?.font = UIFont.systemFont(ofSize: 17)
     }
     
     required init?(coder: NSCoder) {
@@ -29,13 +28,14 @@ class TasksTableViewCell: UITableViewCell {
         if viewModel.isComplete == true {
             detailTextLabel?.isEnabled = false
             textLabel?.isEnabled = false
+            accessoryType = .checkmark
             
         } else if viewModel.isComplete == false {
             detailTextLabel?.isEnabled = true
             textLabel?.isEnabled = true
+            accessoryType = .none
         }
     }
-    
     
     private func makeSlashText(_ text:String) -> NSAttributedString {
         let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: text)

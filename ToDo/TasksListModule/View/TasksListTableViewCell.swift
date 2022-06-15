@@ -1,5 +1,6 @@
 
 import UIKit
+import SnapKit
 
 class TasksListTableViewCell: UITableViewCell {
     
@@ -14,7 +15,7 @@ class TasksListTableViewCell: UITableViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.font = UIFont.boldSystemFont(ofSize: 21)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -30,7 +31,7 @@ class TasksListTableViewCell: UITableViewCell {
     let dateLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 17)
+        label.font = UIFont.systemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -45,23 +46,24 @@ class TasksListTableViewCell: UITableViewCell {
     }
     
     private func setupCellView(_ view: UIView){
-        let textStack = UIStackView(arrangedSubviews: [titleLabel, countLabel])
-        textStack.alignment = .leading
-        textStack.axis = .vertical
-        textStack.distribution = .fill
-        textStack.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(textStack)
+        view.addSubview(titleLabel)
+        view.addSubview(countLabel)
         view.addSubview(dateLabel)
         
-        NSLayoutConstraint.activate([
-            textStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            textStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
-            textStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-            textStack.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor, constant: -15),
-            textStack.heightAnchor.constraint(greaterThanOrEqualToConstant: 60),
-            
-            dateLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            dateLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
-        ])
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(10)
+            make.left.equalToSuperview().inset(15)
+            make.width.equalTo(view.snp.width).inset(15)
+            make.bottom.equalTo(countLabel.snp.top).inset(-10)
+        }
+        countLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).inset(10)
+            make.left.equalToSuperview().inset(15)
+            make.bottom.equalToSuperview().inset(10)
+        }
+        dateLabel.snp.makeConstraints { make in
+            make.right.equalToSuperview().inset(15)
+            make.bottom.equalToSuperview().inset(10)
+        }
     }
 }

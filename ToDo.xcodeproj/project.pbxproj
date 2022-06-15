@@ -24,12 +24,12 @@
 		FA62C15F2850F0ED0015AB86 /* TasksListTableViewViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA62C15E2850F0ED0015AB86 /* TasksListTableViewViewModelDelegate.swift */; };
 		FA62C161285114C70015AB86 /* TasksTableViewCellViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA62C160285114C70015AB86 /* TasksTableViewCellViewModelProtocol.swift */; };
 		FA62C163285115210015AB86 /* TasksTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA62C162285115210015AB86 /* TasksTableViewDelegate.swift */; };
+		FA80D83B285A4EB30087D210 /* TasksTableViewViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA80D83A285A4EB30087D210 /* TasksTableViewViewModelProtocol.swift */; };
 		FA87B39D2846BCD000833F83 /* TasksListTableViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87B39C2846BCD000833F83 /* TasksListTableViewViewModel.swift */; };
 		FA87B39F2846BE0D00833F83 /* TasksListTableViewViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87B39E2846BE0D00833F83 /* TasksListTableViewViewModelProtocol.swift */; };
 		FA87B3A22846C20000833F83 /* TasksListTableViewCellViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87B3A12846C20000833F83 /* TasksListTableViewCellViewModelProtocol.swift */; };
 		FA87B3A42846C38C00833F83 /* TasksListTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87B3A32846C38C00833F83 /* TasksListTableViewCellViewModel.swift */; };
 		FA8983BB284AC1E100EFEFA9 /* TasksTableViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8983BA284AC1E100EFEFA9 /* TasksTableViewViewModel.swift */; };
-		FA8983BE284AC2B200EFEFA9 /* TasksTableViewViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8983BD284AC2B200EFEFA9 /* TasksTableViewViewModelProtocol.swift */; };
 		FACDCDBE28551EDA00D387E3 /* TasksTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACDCDBD28551EDA00D387E3 /* TasksTableViewCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,12 +55,12 @@
 		FA62C15E2850F0ED0015AB86 /* TasksListTableViewViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewViewModelDelegate.swift; sourceTree = "<group>"; };
 		FA62C160285114C70015AB86 /* TasksTableViewCellViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewCellViewModelProtocol.swift; sourceTree = "<group>"; };
 		FA62C162285115210015AB86 /* TasksTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewDelegate.swift; sourceTree = "<group>"; };
+		FA80D83A285A4EB30087D210 /* TasksTableViewViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksTableViewViewModelProtocol.swift; sourceTree = "<group>"; };
 		FA87B39C2846BCD000833F83 /* TasksListTableViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewViewModel.swift; sourceTree = "<group>"; };
 		FA87B39E2846BE0D00833F83 /* TasksListTableViewViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewViewModelProtocol.swift; sourceTree = "<group>"; };
 		FA87B3A12846C20000833F83 /* TasksListTableViewCellViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewCellViewModelProtocol.swift; sourceTree = "<group>"; };
 		FA87B3A32846C38C00833F83 /* TasksListTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		FA8983BA284AC1E100EFEFA9 /* TasksTableViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewViewModel.swift; sourceTree = "<group>"; };
-		FA8983BD284AC2B200EFEFA9 /* TasksTableViewViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TasksTableViewViewModelProtocol.swift; path = ToDo/Protocols/TasksTableViewViewModelProtocol.swift; sourceTree = SOURCE_ROOT; };
 		FACDCDBD28551EDA00D387E3 /* TasksTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,70 +114,106 @@
 		FA338E12281759BC00C2F4A9 /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
-				FA8983B9284AC1BA00EFEFA9 /* TasksListTableVC */,
-				FA8983BC284AC1E900EFEFA9 /* TasksTableVC */,
-				FA87B3A02846BECD00833F83 /* Protocols */,
-				FAF1924A2822AF78003639C1 /* Model */,
-				FAF192482822AF4F003639C1 /* View */,
+				FA8983B9284AC1BA00EFEFA9 /* TasksListModule */,
+				FA8983BC284AC1E900EFEFA9 /* TasksModule */,
 				FAF1924B2822AF9B003639C1 /* Supporting files */,
 				FA338E24281759BD00C2F4A9 /* Info.plist */,
 			);
 			path = ToDo;
 			sourceTree = "<group>";
 		};
-		FA87B3A02846BECD00833F83 /* Protocols */ = {
+		FA3D5180285A4C5E00D13F88 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FA87B39C2846BCD000833F83 /* TasksListTableViewViewModel.swift */,
+				FA87B3A32846C38C00833F83 /* TasksListTableViewCellViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FA3D5181285A4C6F00D13F88 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA338E17281759BC00C2F4A9 /* TasksListTableView.swift */,
+				FA2A1AC3281AFE9C000590B9 /* TasksListTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FA3D5182285A4C9000D13F88 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
 				FA87B39E2846BE0D00833F83 /* TasksListTableViewViewModelProtocol.swift */,
 				FA87B3A12846C20000833F83 /* TasksListTableViewCellViewModelProtocol.swift */,
 				FA62C15E2850F0ED0015AB86 /* TasksListTableViewViewModelDelegate.swift */,
-				FA8983BD284AC2B200EFEFA9 /* TasksTableViewViewModelProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		FA3D5183285A4D0500D13F88 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FA12CEBC281C4AD9003D2F66 /* TaskList.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FA3D5184285A4D3400D13F88 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA12CEC2281C7040003D2F66 /* TasksTableView.swift */,
+				FA1E0EA92856935C0092C5FB /* TasksTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FA3D5185285A4D5700D13F88 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FA8983BA284AC1E100EFEFA9 /* TasksTableViewViewModel.swift */,
+				FACDCDBD28551EDA00D387E3 /* TasksTableViewCellViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FA3D5187285A4D6600D13F88 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FA12CEBA281C4AD0003D2F66 /* Task.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FA87B3A02846BECD00833F83 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				FA80D83A285A4EB30087D210 /* TasksTableViewViewModelProtocol.swift */,
 				FA62C160285114C70015AB86 /* TasksTableViewCellViewModelProtocol.swift */,
 				FA62C162285115210015AB86 /* TasksTableViewDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		FA8983B9284AC1BA00EFEFA9 /* TasksListTableVC */ = {
+		FA8983B9284AC1BA00EFEFA9 /* TasksListModule */ = {
 			isa = PBXGroup;
 			children = (
-				FA338E17281759BC00C2F4A9 /* TasksListTableView.swift */,
-				FA87B39C2846BCD000833F83 /* TasksListTableViewViewModel.swift */,
-				FA87B3A32846C38C00833F83 /* TasksListTableViewCellViewModel.swift */,
+				FA3D5183285A4D0500D13F88 /* Model */,
+				FA3D5180285A4C5E00D13F88 /* ViewModel */,
+				FA3D5181285A4C6F00D13F88 /* View */,
+				FA3D5182285A4C9000D13F88 /* Protocols */,
 			);
-			path = TasksListTableVC;
+			path = TasksListModule;
 			sourceTree = "<group>";
 		};
-		FA8983BC284AC1E900EFEFA9 /* TasksTableVC */ = {
+		FA8983BC284AC1E900EFEFA9 /* TasksModule */ = {
 			isa = PBXGroup;
 			children = (
-				FA12CEC2281C7040003D2F66 /* TasksTableView.swift */,
-				FA8983BA284AC1E100EFEFA9 /* TasksTableViewViewModel.swift */,
-				FACDCDBD28551EDA00D387E3 /* TasksTableViewCellViewModel.swift */,
+				FA87B3A02846BECD00833F83 /* Protocols */,
+				FA3D5187285A4D6600D13F88 /* Model */,
+				FA3D5185285A4D5700D13F88 /* ViewModel */,
+				FA3D5184285A4D3400D13F88 /* View */,
 			);
-			path = TasksTableVC;
-			sourceTree = "<group>";
-		};
-		FAF192482822AF4F003639C1 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				FA2A1AC3281AFE9C000590B9 /* TasksListTableViewCell.swift */,
-				FA1E0EA92856935C0092C5FB /* TasksTableViewCell.swift */,
-				FA338E19281759BC00C2F4A9 /* Main.storyboard */,
-				FA338E1F281759BD00C2F4A9 /* Assets.xcassets */,
-				FA338E21281759BD00C2F4A9 /* LaunchScreen.storyboard */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		FAF1924A2822AF78003639C1 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				FA12CEBE281C4C4B003D2F66 /* StorageManager.swift */,
-				FA12CEBA281C4AD0003D2F66 /* Task.swift */,
-				FA12CEBC281C4AD9003D2F66 /* TaskList.swift */,
-			);
-			path = Model;
+			path = TasksModule;
 			sourceTree = "<group>";
 		};
 		FAF1924B2822AF9B003639C1 /* Supporting files */ = {
@@ -186,6 +222,10 @@
 				FA338E1C281759BC00C2F4A9 /* ToDo.xcdatamodeld */,
 				FA338E13281759BC00C2F4A9 /* AppDelegate.swift */,
 				FA338E15281759BC00C2F4A9 /* SceneDelegate.swift */,
+				FA12CEBE281C4C4B003D2F66 /* StorageManager.swift */,
+				FA338E19281759BC00C2F4A9 /* Main.storyboard */,
+				FA338E1F281759BD00C2F4A9 /* Assets.xcassets */,
+				FA338E21281759BD00C2F4A9 /* LaunchScreen.storyboard */,
 			);
 			path = "Supporting files";
 			sourceTree = "<group>";
@@ -310,7 +350,6 @@
 				FA12CEBD281C4AD9003D2F66 /* TaskList.swift in Sources */,
 				FA338E18281759BC00C2F4A9 /* TasksListTableView.swift in Sources */,
 				FACDCDBE28551EDA00D387E3 /* TasksTableViewCellViewModel.swift in Sources */,
-				FA8983BE284AC2B200EFEFA9 /* TasksTableViewViewModelProtocol.swift in Sources */,
 				FA87B39F2846BE0D00833F83 /* TasksListTableViewViewModelProtocol.swift in Sources */,
 				FA8983BB284AC1E100EFEFA9 /* TasksTableViewViewModel.swift in Sources */,
 				FA87B3A22846C20000833F83 /* TasksListTableViewCellViewModelProtocol.swift in Sources */,
@@ -321,6 +360,7 @@
 				FA12CEC3281C7040003D2F66 /* TasksTableView.swift in Sources */,
 				FA338E16281759BC00C2F4A9 /* SceneDelegate.swift in Sources */,
 				FA12CEBB281C4AD0003D2F66 /* Task.swift in Sources */,
+				FA80D83B285A4EB30087D210 /* TasksTableViewViewModelProtocol.swift in Sources */,
 				FA1E0EAA2856935C0092C5FB /* TasksTableViewCell.swift in Sources */,
 				FA62C163285115210015AB86 /* TasksTableViewDelegate.swift in Sources */,
 				FA338E1E281759BC00C2F4A9 /* ToDo.xcdatamodeld in Sources */,
