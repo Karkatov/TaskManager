@@ -23,7 +23,6 @@ class TasksTableView: UITableViewController {
         editButtonItem.image = UIImage(systemName: "square.and.pencil")
         editButtonItem.tintColor = .systemOrange
         navigationItem.rightBarButtonItems = [addButton, editButtonItem]
-        //navigationItem.rightBarButtonItems?[1].title = "Изменить"
         view.backgroundColor = .systemGray6
         tableView.register(TasksTableViewCell.self, forCellReuseIdentifier: "Cell")
     }
@@ -39,12 +38,17 @@ class TasksTableView: UITableViewController {
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
-        navigationItem.searchController = searchController
         searchController.searchBar.placeholder = "Поиск"
         searchController.searchBar.setValue("Отмена", forKey:"cancelButtonText")
         searchController.definesPresentationContext = true
+        searchController.isActive = false
+        navigationItem.searchController = searchController
     }
     
+    @objc func createTasksList() {
+        tableView.isEditing = false
+        viewModel.createTask()
+    }
 }
 
 // MARK: - Metods UITableViewDataSource and UITableViewDelegate
@@ -57,17 +61,16 @@ extension TasksTableView {
         return viewModel.getNumberOfRows(section)
     }
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         let view = UIView()
         view.backgroundColor = .systemGray6
         let label = UILabel()
         label.text = viewModel.getTitleOfSection(section)
         label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.frame = CGRect(x: 15, y: view.frame.height / 2, width: 300, height: 25)
+        label.frame = CGRect(x: 15, y: view.frame.height / 2, width: 300, height: 30)
         if label.text == "АКТИВНЫЕ ЗАДАЧИ" {
-            label.textColor = .systemGreen
-        } else {
             label.textColor = .systemRed
+        } else {
+            label.textColor = .systemGreen
         }
         view.addSubview(label)
         return view
@@ -110,6 +113,15 @@ extension TasksTableView {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
+        cell.layer.transform = rotationTransform
+        cell.alpha = 0
+        UIView.animate(withDuration: 0.3) {
+            cell.layer.transform = CATransform3DIdentity
+            cell.alpha = 1.0
+        }
+    }
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         if editing {
@@ -119,12 +131,6 @@ extension TasksTableView {
             tableView.endEditing(true)
             self.navigationItem.rightBarButtonItems?[1].title = "Изменить"
         }
-        
-    }
-    
-    @objc func createTasksList() {
-        tableView.isEditing = false
-        viewModel.createTask()
     }
 }
 // MARK: - Metods TasksTableViewDelegate
@@ -146,7 +152,7 @@ extension TasksTableView: TasksTableViewDelegate {
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         let saveAction = UIAlertAction(title: doneButton, style: .default) { _ in
             guard let taskName = nameTextField.text, !taskName.isEmpty else { return }
-            guard let taskNote = noteTextField.text, !taskNote.isEmpty else { return }
+            let taskNote = noteTextField.text ?? ""
             if task != nil {
                 StorageManager.editTask(task!, taskName: taskName, taskNote: taskNote)
                 if complition != nil {
@@ -160,7 +166,6 @@ extension TasksTableView: TasksTableViewDelegate {
                 self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
             }
         }
-        
         let cancelActon = UIAlertAction(title: "Отмена", style: .default)
         alert.addTextField() { textField in
             textField.text = task?.name
@@ -204,7 +209,7 @@ extension TasksTableView: UISearchResultsUpdating, UISearchBarDelegate {
 extension TasksTableView: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard textField.text?.isEmpty == true else { return true }
-        textField.text = string.uppercased()
+        textField.text = string.capitalized
         return false
     }
 }

@@ -5,12 +5,9 @@ import RealmSwift
 class TasksTableViewViewModel: TasksTableViewViewModelProtocol {
     
     weak var delegate: TasksTableViewDelegate!
-    
     var currentTasks: Results<Task>!
     var completedTask: Results<Task>!
-    
     var tasksList: TasksList
-    
     var searchBarIsEmpty = true
     
     func filteredTasks(_ searchText: String? = nil) {

@@ -5,9 +5,7 @@ import RealmSwift
 class TasksListTableViewViewModel: TasksListTableViewViewModelProtocol {
     
     var searchBarIsEmpty = true
-    
     weak var delegate: TasksListTableViewViewModelDelegate!
-    
     var tasksLists: Results<TasksList> = realm.objects(TasksList.self).sorted(byKeyPath: "date", ascending: false)
     
     var numberOfRows: Int {

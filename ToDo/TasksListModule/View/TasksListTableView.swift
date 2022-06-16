@@ -23,7 +23,7 @@ class TasksListTableView: UITableViewController {
         editButtonItem.tintColor = .systemOrange
         navigationItem.rightBarButtonItem = addButton
         view.backgroundColor = .systemGray6
-        title = "Заметки"
+        title = "Мои задачи"
         navigationController?.navigationBar.prefersLargeTitles = true
         tableView.register(TasksListTableViewCell.self, forCellReuseIdentifier: "Cell")
     }
@@ -33,7 +33,7 @@ class TasksListTableView: UITableViewController {
         tableView.reloadData()
     }
     
-    func toogleCompletion( _ cell: UITableViewCell, isCompleted: Bool) {
+    private func toogleCompletion( _ cell: UITableViewCell, isCompleted: Bool) {
         cell.accessoryType = isCompleted ? .checkmark : .none
     }
 }
@@ -79,6 +79,16 @@ extension TasksListTableView {
         return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
     }
     
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
+        cell.layer.transform = rotationTransform
+        cell.alpha = 0
+        UIView.animate(withDuration: 0.3) {
+            cell.layer.transform = CATransform3DIdentity
+            cell.alpha = 1.0
+        }
+    }
+    
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         
@@ -99,10 +109,11 @@ extension TasksListTableView {
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
-        navigationItem.searchController = searchController
         searchController.searchBar.placeholder = "Поиск"
         searchController.definesPresentationContext = true
         searchController.searchBar.setValue("Отмена", forKey:"cancelButtonText")
+        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.searchController = searchController
     }
 }
 
@@ -168,7 +179,7 @@ extension TasksListTableView: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard textField.text?.isEmpty == true else { return true }
-        textField.text = string.uppercased()
+        textField.text = string.capitalized
         return false
     }
 }

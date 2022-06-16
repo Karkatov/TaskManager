@@ -39,7 +39,9 @@ class TasksTableViewCell: UITableViewCell {
     
     private func makeSlashText(_ text:String) -> NSAttributedString {
         let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: text)
-        attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
+        attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+        
         return attributeString
+        
     }
 }

@@ -4,21 +4,21 @@ import Foundation
 class TasksListTableViewCellViewModel: TasksListTableViewCellViewModelProtocol {
     
     private var taskList: TasksList!
-    
+
     var titleLabel: String {
         return taskList.name
     }
     
     func calculateTasks() -> String {
-        let taskCount = taskList.tasks.count
-        if [1,21,31,41,51].contains(taskCount) {
-            return "\(taskCount) задача"
-        } else if (2...4).contains(taskCount) {
-            return "\(taskCount) задачи"
-        } else if taskCount == 0 || (5...20).contains(taskCount) {
-            return "\(taskCount) задач"
+        let currentTasksCount = taskList.tasks.filter("isComplete = false").count
+        if [1,21,31,41,51].contains(currentTasksCount) {
+            return "\(currentTasksCount) задача"
+        } else if (2...4).contains(currentTasksCount) {
+            return "\(currentTasksCount) задачи"
+        } else if currentTasksCount == 0 || (5...20).contains(currentTasksCount) {
+            return "\(currentTasksCount) задач"
         }
-        return "\(taskCount) задач"
+        return "\(currentTasksCount) задача"
     }
     
     var dateLabel: String {
