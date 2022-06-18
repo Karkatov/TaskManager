@@ -102,8 +102,18 @@ extension TasksTableView {
         editAction.image = UIImage(systemName: "square.and.pencil")
         
         let doneAction = UIContextualAction(style: .normal, title: nil) { _, _, _ in
-            StorageManager.isCompleted(task)
-            tableView.reloadData()
+            let newTask = Task()
+            newTask.name = task.name
+            newTask.note = task.note
+            newTask.isComplete = !task.isComplete
+            StorageManager.deleteTask(task)
+            StorageManager.saveTask(self.viewModel.tasksList, task: newTask)
+            let section = newTask.isComplete ? 1 : 0
+            tableView.beginUpdates()
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.insertRows(at: [IndexPath(row: 0, section: section)], with: .automatic)
+            tableView.endUpdates()
+            
         }
         doneAction.backgroundColor = task.isComplete ? .systemCyan : .systemGreen
         doneAction.image = task.isComplete ? UIImage(systemName: "shift") : UIImage(systemName: "checkmark")
@@ -135,6 +145,22 @@ extension TasksTableView {
 }
 // MARK: - Metods TasksTableViewDelegate
 extension TasksTableView: TasksTableViewDelegate {
+    
+    func editStatusTask(_ indexPath: IndexPath, taskName: String, isComplete: Bool) -> Int {
+        let tasks = viewModel.tasksList.tasks
+        let taskName = tasks[indexPath.row].name
+        var row = 0
+        for task in tasks {
+            guard task.isComplete == isComplete else { continue }
+            if task.name != taskName {
+                row += 1
+            } else if task.name == taskName {
+                break
+            }
+        }
+        return row
+    }
+    
     func updateTableView(_ indexPath: IndexPath) {
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
