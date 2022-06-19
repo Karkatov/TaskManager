@@ -42,6 +42,5 @@ class TasksTableViewCell: UITableViewCell {
         attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
         
         return attributeString
-        
     }
 }

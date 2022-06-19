@@ -9,6 +9,7 @@ class TasksTableViewViewModel: TasksTableViewViewModelProtocol {
     var completedTask: Results<Task>!
     var tasksList: TasksList
     var searchBarIsEmpty = true
+    var cellIdentifier = "TasksTableViewCell"
     
     func filteredTasks(_ searchText: String? = nil) {
         if searchBarIsEmpty {

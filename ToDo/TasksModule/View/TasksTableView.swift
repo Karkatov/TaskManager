@@ -4,13 +4,11 @@ import RealmSwift
 
 class TasksTableView: UITableViewController {
     
-    var currentTasksList: TasksList!
     var viewModel: TasksTableViewViewModelProtocol!
     var searchController: UISearchController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = TasksTableViewViewModel(currentTasksList)
         viewModel.delegate = self
         setSearchController()
         setTableView()
@@ -24,7 +22,7 @@ class TasksTableView: UITableViewController {
         editButtonItem.tintColor = .systemOrange
         navigationItem.rightBarButtonItems = [addButton, editButtonItem]
         view.backgroundColor = .systemGray6
-        tableView.register(TasksTableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(TasksTableViewCell.self, forCellReuseIdentifier: viewModel.cellIdentifier)
     }
     
     private func makeSlashText(_ text:String) -> NSAttributedString {
@@ -77,7 +75,7 @@ extension TasksTableView {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TasksTableViewCell else { return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: viewModel.cellIdentifier) as? TasksTableViewCell else { return UITableViewCell()
         }
         cell.viewModel = viewModel.cellViewModel(forIndexPath: indexPath)
         cell.setupIsComplete()
@@ -232,6 +230,7 @@ extension TasksTableView: UISearchResultsUpdating, UISearchBarDelegate {
     }
 }
 
+// MARK: - Metods UITextFieldDelegate
 extension TasksTableView: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard textField.text?.isEmpty == true else { return true }

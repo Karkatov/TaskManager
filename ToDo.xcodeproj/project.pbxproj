@@ -206,10 +206,10 @@
 		FA8983BC284AC1E900EFEFA9 /* TasksModule */ = {
 			isa = PBXGroup;
 			children = (
-				FA87B3A02846BECD00833F83 /* Protocols */,
 				FA3D5187285A4D6600D13F88 /* Model */,
-				FA3D5185285A4D5700D13F88 /* ViewModel */,
 				FA3D5184285A4D3400D13F88 /* View */,
+				FA3D5185285A4D5700D13F88 /* ViewModel */,
+				FA87B3A02846BECD00833F83 /* Protocols */,
 			);
 			path = TasksModule;
 			sourceTree = "<group>";

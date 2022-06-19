@@ -16,28 +16,37 @@ class TasksListTableView: UITableViewController {
     }
     
     private func setTableView() {
+        title = "Мои задачи"
+        view.backgroundColor = .systemGray6
         navigationItem.leftBarButtonItem = editButtonItem
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAlertForCreateNote))
         addButton.tintColor = .systemGreen
         editButtonItem.image = UIImage(systemName: "square.and.pencil")
         editButtonItem.tintColor = .systemOrange
         navigationItem.rightBarButtonItem = addButton
-        view.backgroundColor = .systemGray6
-        title = "Мои задачи"
         navigationController?.navigationBar.prefersLargeTitles = true
-        tableView.register(TasksListTableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(TasksListTableViewCell.self, forCellReuseIdentifier: viewModel.cellIdentifier)
+    }
+    
+    private func setSearchController() {
+        searchController = UISearchController()
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Поиск"
+        searchController.definesPresentationContext = true
+        searchController.searchBar.setValue("Отмена", forKey:"cancelButtonText")
+        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.searchController = searchController
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
-    
-    private func toogleCompletion( _ cell: UITableViewCell, isCompleted: Bool) {
-        cell.accessoryType = isCompleted ? .checkmark : .none
-    }
 }
 
+// MARK: - Metods TableViewDelegate and TableViewDataSource
 extension TasksListTableView {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -45,7 +54,7 @@ extension TasksListTableView {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TasksListTableViewCell,
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: viewModel.cellIdentifier) as? TasksListTableViewCell,
               let viewModel = viewModel else { return UITableViewCell() }
         guard let cellViewModel = viewModel.cellViewModel(forIndexPath: indexPath) else { return UITableViewCell() }
         cell.viewModel = cellViewModel
@@ -53,16 +62,53 @@ extension TasksListTableView {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.selectRow(atIndexPath: indexPath)
+        let detailViewModel = viewModel.getViewModelDetail()
         let tasksVC = TasksTableView()
-        tasksVC.currentTasksList = viewModel.tasksLists[indexPath.row]
+        tasksVC.viewModel = detailViewModel
         navigationController?.pushViewController(tasksVC, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        true
+        return true
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return createSwipeActions(indexPath)
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
+        cell.layer.transform = rotationTransform
+        cell.alpha = 0
+        UIView.animate(withDuration: 0.3) {
+            cell.layer.transform = CATransform3DIdentity
+            cell.alpha = 1.0
+        }
+    }
+    
+    private func toogleCompletion( _ cell: UITableViewCell, isCompleted: Bool) {
+        cell.accessoryType = isCompleted ? .checkmark : .none
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        if editing {
+            self.navigationItem.leftBarButtonItem?.title = "Готово"
+            tableView.setEditing(editing, animated: true)
+        } else {
+            tableView.endEditing(true)
+            self.navigationItem.leftBarButtonItem?.title = "Изменить"
+        }
+    }
+    
+    @objc func showAlertForCreateNote() {
+        tableView.isEditing = false
+        viewModel.createTasksList()
+    }
+    
+    private func createSwipeActions(_ indexPath: IndexPath) -> UISwipeActionsConfiguration {
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, _ in
             self.viewModel.deleteTasksList(indexPath)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -78,45 +124,9 @@ extension TasksListTableView {
         editAction.image = UIImage(systemName: "square.and.pencil")
         return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
     }
-    
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
-        cell.layer.transform = rotationTransform
-        cell.alpha = 0
-        UIView.animate(withDuration: 0.3) {
-            cell.layer.transform = CATransform3DIdentity
-            cell.alpha = 1.0
-        }
-    }
-    
-    override func setEditing(_ editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: animated)
-        
-        if editing {
-            self.navigationItem.leftBarButtonItem?.title = "Готово"
-            tableView.setEditing(editing, animated: true)
-        } else {
-            tableView.endEditing(true)
-            self.navigationItem.leftBarButtonItem?.title = "Изменить"
-        }
-    }
-    @objc func showAlertForCreateNote() {
-        tableView.isEditing = false
-        viewModel.createTasksList()
-    }
-    private func setSearchController() {
-        searchController = UISearchController()
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.delegate = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Поиск"
-        searchController.definesPresentationContext = true
-        searchController.searchBar.setValue("Отмена", forKey:"cancelButtonText")
-        navigationItem.hidesSearchBarWhenScrolling = false
-        navigationItem.searchController = searchController
-    }
 }
 
+// MARK: - Metods TasksListTableViewViewModelDelegate
 extension TasksListTableView: TasksListTableViewViewModelDelegate {
     func updateTableView(_ indexPath: IndexPath) {
         tableView.reloadRows(at: [indexPath], with: .automatic)
@@ -175,6 +185,7 @@ extension TasksListTableView: UISearchResultsUpdating, UISearchBarDelegate {
     }
 }
 
+// MARK: - Metods UITextFieldDelegate
 extension TasksListTableView: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

@@ -3,6 +3,7 @@ import RealmSwift
 
 class TasksTableViewCellViewModel: TasksTableViewCellViewModelProtocol {
     
+    var identifier = "TasksTableViewCell"
     var task: Task
     
     var title: String {

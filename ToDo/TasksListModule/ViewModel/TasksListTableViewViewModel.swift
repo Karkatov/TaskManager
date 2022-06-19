@@ -4,17 +4,27 @@ import RealmSwift
 
 class TasksListTableViewViewModel: TasksListTableViewViewModelProtocol {
     
+    private var selectedIndexPath: IndexPath?
     var searchBarIsEmpty = true
     weak var delegate: TasksListTableViewViewModelDelegate!
     var tasksLists: Results<TasksList> = realm.objects(TasksList.self).sorted(byKeyPath: "date", ascending: false)
-    
+    var cellIdentifier = "TasksListTableViewCell"
     var numberOfRows: Int {
         return tasksLists.count
+    }
+    
+    func selectRow(atIndexPath indexPath: IndexPath) {
+        self.selectedIndexPath = indexPath
     }
     
     func cellViewModel(forIndexPath indexPath: IndexPath) -> TasksListTableViewCellViewModelProtocol? {
         let taskList = tasksLists[indexPath.row]
         return TasksListTableViewCellViewModel(taskList: taskList)
+    }
+    
+    func getViewModelDetail() -> TasksTableViewViewModelProtocol? {
+        guard let selectedIndexPath = selectedIndexPath else { return nil }
+        return TasksTableViewViewModel(tasksLists[selectedIndexPath.row])
     }
     
     func createTasksList() {
