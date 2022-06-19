@@ -6,6 +6,7 @@ class TasksListTableView: UITableViewController {
     
     var viewModel: TasksListTableViewViewModelProtocol!
     var searchController: UISearchController!
+    var searchMode = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +79,7 @@ extension TasksListTableView {
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard !searchMode else { return }
         let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
         cell.layer.transform = rotationTransform
         cell.alpha = 0
@@ -175,9 +177,11 @@ extension TasksListTableView: UISearchResultsUpdating, UISearchBarDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
         if let text = searchController.searchBar.text, text != "" {
+            searchMode = true
             viewModel.searchBarIsEmpty = false
             viewModel.filteredTasks(text)
         } else {
+            searchMode = false
             viewModel.searchBarIsEmpty = true
             viewModel.filteredTasks(nil)
         }

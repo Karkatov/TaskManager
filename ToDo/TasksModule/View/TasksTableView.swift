@@ -6,6 +6,7 @@ class TasksTableView: UITableViewController {
     
     var viewModel: TasksTableViewViewModelProtocol!
     var searchController: UISearchController!
+    var searchMode = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,6 +123,7 @@ extension TasksTableView {
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard !searchMode else { return }
         let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
         cell.layer.transform = rotationTransform
         cell.alpha = 0
@@ -213,11 +215,13 @@ extension TasksTableView: TasksTableViewDelegate {
 extension TasksTableView: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         if let text = searchController.searchBar.text, text != "" {
+            searchMode = true
             viewModel.searchBarIsEmpty = false
             viewModel.filteredTasks(text)
         } else {
             viewModel.searchBarIsEmpty = true
             viewModel.filteredTasks(nil)
+            searchMode = false
         }
         tableView.reloadData()
     }
