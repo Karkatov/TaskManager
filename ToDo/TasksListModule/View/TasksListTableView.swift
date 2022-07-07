@@ -198,6 +198,3 @@ extension TasksListTableView: UITextFieldDelegate {
         return false
     }
 }
-
-
-

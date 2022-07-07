@@ -53,6 +53,10 @@ class TasksTableViewViewModel: TasksTableViewViewModelProtocol {
             self.delegate.updateTableView(indexPath)
         }
     }
+    func editTask(_ task: Task, name: String, note: String) {
+        StorageManager.editTask(task, taskName: name, taskNote: note)
+    }
+       
     
     func deleteTask(_ task: Task) {
         StorageManager.deleteTask(task)

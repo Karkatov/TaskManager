@@ -6,7 +6,7 @@ protocol TasksListTableViewViewModelProtocol {
     
     var delegate: (TasksListTableViewViewModelDelegate)! { get set }
     var numberOfRows: Int { get }
-    var tasksLists: Results<TasksList> { get set}
+    var tasksLists: Results<TasksList> { get set }
     var searchBarIsEmpty: Bool { get set }
     var cellIdentifier: String { get set }
     

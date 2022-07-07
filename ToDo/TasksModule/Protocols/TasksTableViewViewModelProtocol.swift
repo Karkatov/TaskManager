@@ -19,4 +19,5 @@ protocol TasksTableViewViewModelProtocol {
     func createTask()
     func updateTask(_ task: Task, indexPath: IndexPath)
     func deleteTask(_ task: Task)
+    func editTask(_ task: Task, name: String, note: String)
 }
