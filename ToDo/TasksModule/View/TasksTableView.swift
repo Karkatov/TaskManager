@@ -143,21 +143,21 @@ extension TasksTableView {
         }
     }
     
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == 0 {
-            return true
-        }
-        return false
-    }
-    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        
-        let sourceTask = viewModel.currentTasks[sourceIndexPath.row]
-        let destinationTask = viewModel.currentTasks[destinationIndexPath.row]
-        let destinationTaskName = destinationTask.name
-        let destinationTaskNote = destinationTask.note
-        viewModel.editTask(destinationTask, name: sourceTask.name, note: sourceTask.note)
-        viewModel.editTask(sourceTask, name: destinationTaskName, note: destinationTaskNote)
-    }
+//    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        if indexPath.section == 0 {
+//            return true
+//        }
+//        return false
+//    }
+//    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+//        
+//        let sourceTask = viewModel.currentTasks[sourceIndexPath.row]
+//        let destinationTask = viewModel.currentTasks[destinationIndexPath.row]
+//        let destinationTaskName = destinationTask.name
+//        let destinationTaskNote = destinationTask.note
+//        viewModel.editTask(destinationTask, name: sourceTask.name, note: sourceTask.note)
+//        viewModel.editTask(sourceTask, name: destinationTaskName, note: destinationTaskNote)
+//    }
 }
 // MARK: - Metods TasksTableViewDelegate
 extension TasksTableView: TasksTableViewDelegate {
