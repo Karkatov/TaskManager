@@ -78,6 +78,7 @@ extension TasksListTableView {
         return createSwipeActions(indexPath)
     }
     
+    // cell animation
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard !searchMode else { return }
         let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
