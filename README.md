@@ -12,6 +12,7 @@
 + Архитектура - MVVM
 + Хранение данных - Realm
 + Верстка - SnapKit
++ Анимация - Core Animation
 
     <img src="https://media.giphy.com/media/fX9CdsDH2EVlLr7mNI/giphy.gif" width="250">
     <img src="https://media.giphy.com/media/Dlil3k9QuRHv7xtNcI/giphy.gif" width="250">
