@@ -12,6 +12,7 @@
 + Архитектура - MVVM
 + Хранение данных - Realm
 + Верстка - SnapKit
++ Вход по биометрии - LocalAuthentication
 + Анимация - Core Animation
 
     <img src="https://media.giphy.com/media/fX9CdsDH2EVlLr7mNI/giphy.gif" width="250">
