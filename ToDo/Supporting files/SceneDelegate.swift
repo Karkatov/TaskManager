@@ -5,6 +5,7 @@ import LocalAuthentication
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
+    var secureMode = false
     var window: UIWindow?
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
@@ -33,6 +34,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         checkUser()
     }
     
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        guard !secureMode else {
+            checkUser()
+            return }
+        self.window!.viewWithTag(10)?.removeFromSuperview()
+    }
+    
     func checkUser() {
         let context = LAContext()
         
@@ -41,17 +49,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 if success {
                     DispatchQueue.main.async {
                         self.window!.viewWithTag(10)?.removeFromSuperview()
+                        self.secureMode = false
                     }
                 } else {
                     guard let error = error else { return }
                     print(error.localizedDescription)
+                    self.secureMode = true
                 }
             }
         }
     }
     
     func blurEffect() {
-        let blurEffect = UIBlurEffect(style: .light)
+        let blurEffect = UIBlurEffect(style: .regular)
         let blurView = UIVisualEffectView(effect: blurEffect)
         blurView.frame = self.window!.frame
         blurView.tag = 10
