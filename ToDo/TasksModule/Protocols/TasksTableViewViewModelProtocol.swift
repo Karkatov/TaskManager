@@ -10,7 +10,7 @@ protocol TasksTableViewViewModelProtocol {
     var completedTask: Results<Task>! { get set}
     var searchBarIsEmpty: Bool { get set }
     var cellIdentifier: String { get set}
-    func filteredTasks(_ searchText: String?)
+    func filteredTasks(_ searchText: String)
     func getNumberOfRows(_ section: Int) -> Int
     func getNumberOfSections() -> Int
     func getTitleOfSection(_ section: Int) -> String

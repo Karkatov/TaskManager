@@ -46,6 +46,7 @@ class TasksListTableViewViewModel: TasksListTableViewViewModelProtocol {
             tasksLists = realm.objects(TasksList.self).sorted(byKeyPath: "date", ascending: false)
         } else {
             guard let text = searchText else { return }
+        tasksLists = realm.objects(TasksList.self).sorted(byKeyPath: "date", ascending: false)
             tasksLists = tasksLists.filter("name CONTAINS[c] '\(text)'")
         }
     }

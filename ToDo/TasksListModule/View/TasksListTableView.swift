@@ -31,11 +31,11 @@ class TasksListTableView: UITableViewController {
     
     private func setSearchController() {
         searchController = UISearchController()
-        searchController.searchResultsUpdater = self
+        //searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
-        searchController.obscuresBackgroundDuringPresentation = false
+        //searchController.obscuresBackgroundDuringPresentation = false
+        //searchController.definesPresentationContext = true
         searchController.searchBar.placeholder = "Поиск"
-        searchController.definesPresentationContext = true
         searchController.searchBar.setValue("Отмена", forKey:"cancelButtonText")
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.searchController = searchController
@@ -174,13 +174,13 @@ extension TasksListTableView: TasksListTableViewViewModelDelegate {
 }
 
 // MARK: - Metods UISearchResultsUpdating
-extension TasksListTableView: UISearchResultsUpdating, UISearchBarDelegate {
+extension TasksListTableView: UISearchBarDelegate {
     
-    func updateSearchResults(for searchController: UISearchController) {
-        if let text = searchController.searchBar.text, text != "" {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText != "" {
             searchMode = true
             viewModel.searchBarIsEmpty = false
-            viewModel.filteredTasks(text)
+            viewModel.filteredTasks(searchText)
         } else {
             searchMode = false
             viewModel.searchBarIsEmpty = true

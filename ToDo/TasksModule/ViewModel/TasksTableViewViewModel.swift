@@ -11,14 +11,15 @@ class TasksTableViewViewModel: TasksTableViewViewModelProtocol {
     var searchBarIsEmpty = true
     var cellIdentifier = "TasksTableViewCell"
     
-    func filteredTasks(_ searchText: String? = nil) {
+    func filteredTasks(_ searchText: String) {
         if searchBarIsEmpty {
             currentTasks = tasksList.tasks.filter("isComplete = false")
             completedTask = tasksList.tasks.filter("isComplete = true")
         } else {
-            guard let text = searchText else { return }
-            currentTasks = currentTasks.filter("name CONTAINS[c] '\(text)'")
-            completedTask = completedTask.filter("name CONTAINS[c] '\(text)'")
+            currentTasks = tasksList.tasks.filter("isComplete = false")
+            completedTask = tasksList.tasks.filter("isComplete = true")
+            currentTasks = currentTasks.filter("name CONTAINS[c] '\(searchText)'")
+            completedTask = completedTask.filter("name CONTAINS[c] '\(searchText)'")
         }
     }
     
@@ -56,7 +57,7 @@ class TasksTableViewViewModel: TasksTableViewViewModelProtocol {
     func editTask(_ task: Task, name: String, note: String) {
         StorageManager.editTask(task, taskName: name, taskNote: note)
     }
-       
+    
     
     func deleteTask(_ task: Task) {
         StorageManager.deleteTask(task)
