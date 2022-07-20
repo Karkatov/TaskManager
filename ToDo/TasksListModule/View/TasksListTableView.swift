@@ -188,6 +188,14 @@ extension TasksListTableView: UISearchBarDelegate {
         }
         tableView.reloadData()
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchMode = false
+        viewModel.searchBarIsEmpty = true
+        viewModel.filteredTasks(nil)
+        tableView.reloadData()
+    }
+    
 }
 
 // MARK: - Metods UITextFieldDelegate
