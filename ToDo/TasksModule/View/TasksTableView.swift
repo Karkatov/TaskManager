@@ -1,5 +1,7 @@
 
+
 import UIKit
+import AudioToolbox
 import RealmSwift
 
 class TasksTableView: UITableViewController {
@@ -44,6 +46,7 @@ class TasksTableView: UITableViewController {
     }
     
     @objc func createTasksList() {
+        UIFeedbackGenerator.selectionFeedback()
         tableView.isEditing = false
         viewModel.createTask()
     }
@@ -88,12 +91,14 @@ extension TasksTableView {
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, _ in
             StorageManager.deleteTask(task)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            UIFeedbackGenerator.notificationFeedback()
         }
         deleteAction.backgroundColor = .systemRed
         deleteAction.image = UIImage(systemName: "trash")
         
         let editAction = UIContextualAction(style: .normal, title: nil) { _, _, complition in
             self.viewModel.updateTask(task, indexPath: indexPath)
+            UIFeedbackGenerator.impactFeedback()
             complition(true)
         }
         editAction.backgroundColor = .orange
@@ -110,6 +115,7 @@ extension TasksTableView {
             tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .automatic)
             tableView.insertRows(at: [IndexPath(row: 0, section: section)], with: .automatic)
+            UIFeedbackGenerator.impactFeedback()
             tableView.endUpdates()
             
         }
@@ -133,6 +139,7 @@ extension TasksTableView {
     }
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
+        UIFeedbackGenerator.selectionFeedback()
         if editing {
             self.navigationItem.rightBarButtonItems?[1].title = "Готово"
             tableView.setEditing(editing, animated: true)
@@ -141,22 +148,6 @@ extension TasksTableView {
             self.navigationItem.rightBarButtonItems?[1].title = "Изменить"
         }
     }
-    
-//    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-//        if indexPath.section == 0 {
-//            return true
-//        }
-//        return false
-//    }
-//    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-//        
-//        let sourceTask = viewModel.currentTasks[sourceIndexPath.row]
-//        let destinationTask = viewModel.currentTasks[destinationIndexPath.row]
-//        let destinationTaskName = destinationTask.name
-//        let destinationTaskNote = destinationTask.note
-//        viewModel.editTask(destinationTask, name: sourceTask.name, note: sourceTask.note)
-//        viewModel.editTask(sourceTask, name: destinationTaskName, note: destinationTaskNote)
-//    }
 }
 // MARK: - Metods TasksTableViewDelegate
 extension TasksTableView: TasksTableViewDelegate {
@@ -192,6 +183,7 @@ extension TasksTableView: TasksTableViewDelegate {
         var noteTextField: UITextField!
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         let saveAction = UIAlertAction(title: doneButton, style: .default) { _ in
+            UIFeedbackGenerator.selectionFeedback()
             guard let taskName = nameTextField.text, !taskName.isEmpty else { return }
             let taskNote = noteTextField.text ?? ""
             if task != nil {
@@ -207,7 +199,9 @@ extension TasksTableView: TasksTableViewDelegate {
                 self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
             }
         }
-        let cancelActon = UIAlertAction(title: "Отмена", style: .default)
+        let cancelActon = UIAlertAction(title: "Отмена", style: .default) { _ in
+            UIFeedbackGenerator.selectionFeedback()
+        }
         alert.addTextField() { textField in
             textField.text = task?.name
             textField.placeholder = "Название"

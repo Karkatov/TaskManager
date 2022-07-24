@@ -2,6 +2,7 @@
 
 import UIKit
 import LocalAuthentication
+import AudioToolbox
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -47,6 +48,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Please authenticate to proceed.") { (success, error) in
                 if success {
+                    UIFeedbackGenerator.impactFeedback()
                     DispatchQueue.main.async {
                         self.window!.viewWithTag(10)?.removeFromSuperview()
                         self.secureMode = false

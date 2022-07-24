@@ -14,6 +14,7 @@
 		FA12CEC3281C7040003D2F66 /* TasksTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12CEC2281C7040003D2F66 /* TasksTableView.swift */; };
 		FA1E0EAA2856935C0092C5FB /* TasksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1E0EA92856935C0092C5FB /* TasksTableViewCell.swift */; };
 		FA2A1AC4281AFE9C000590B9 /* TasksListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2A1AC3281AFE9C000590B9 /* TasksListTableViewCell.swift */; };
+		FA30AF42288DF0D5006B1AB0 /* Extension UIFeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA30AF41288DF0D5006B1AB0 /* Extension UIFeedbackGenerator.swift */; };
 		FA338E14281759BC00C2F4A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA338E13281759BC00C2F4A9 /* AppDelegate.swift */; };
 		FA338E16281759BC00C2F4A9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA338E15281759BC00C2F4A9 /* SceneDelegate.swift */; };
 		FA338E18281759BC00C2F4A9 /* TasksListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA338E17281759BC00C2F4A9 /* TasksListTableView.swift */; };
@@ -42,6 +43,7 @@
 		FA12CEC2281C7040003D2F66 /* TasksTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableView.swift; sourceTree = "<group>"; };
 		FA1E0EA92856935C0092C5FB /* TasksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewCell.swift; sourceTree = "<group>"; };
 		FA2A1AC3281AFE9C000590B9 /* TasksListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewCell.swift; sourceTree = "<group>"; };
+		FA30AF41288DF0D5006B1AB0 /* Extension UIFeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Extension UIFeedbackGenerator.swift"; path = "ToDo/TasksModule/View/Extension UIFeedbackGenerator.swift"; sourceTree = SOURCE_ROOT; };
 		FA338E10281759BC00C2F4A9 /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA338E13281759BC00C2F4A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA338E15281759BC00C2F4A9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 		FAF1924B2822AF9B003639C1 /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				FA30AF41288DF0D5006B1AB0 /* Extension UIFeedbackGenerator.swift */,
 				FA338E1C281759BC00C2F4A9 /* ToDo.xcdatamodeld */,
 				FA338E13281759BC00C2F4A9 /* AppDelegate.swift */,
 				FA338E15281759BC00C2F4A9 /* SceneDelegate.swift */,
@@ -359,6 +362,7 @@
 				FA80D83B285A4EB30087D210 /* TasksTableViewViewModelProtocol.swift in Sources */,
 				FA1E0EAA2856935C0092C5FB /* TasksTableViewCell.swift in Sources */,
 				FA62C163285115210015AB86 /* TasksTableViewDelegate.swift in Sources */,
+				FA30AF42288DF0D5006B1AB0 /* Extension UIFeedbackGenerator.swift in Sources */,
 				FA338E1E281759BC00C2F4A9 /* ToDo.xcdatamodeld in Sources */,
 				FA62C15F2850F0ED0015AB86 /* TasksListTableViewViewModelDelegate.swift in Sources */,
 			);

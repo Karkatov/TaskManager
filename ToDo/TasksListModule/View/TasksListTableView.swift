@@ -31,10 +31,7 @@ class TasksListTableView: UITableViewController {
     
     private func setSearchController() {
         searchController = UISearchController()
-        //searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
-        //searchController.obscuresBackgroundDuringPresentation = false
-        //searchController.definesPresentationContext = true
         searchController.searchBar.placeholder = "Поиск"
         searchController.searchBar.setValue("Отмена", forKey:"cancelButtonText")
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -63,6 +60,7 @@ extension TasksListTableView {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        UIFeedbackGenerator.selectionFeedback()
         viewModel.selectRow(atIndexPath: indexPath)
         let detailViewModel = viewModel.getViewModelDetail()
         let tasksVC = TasksTableView()
@@ -96,7 +94,7 @@ extension TasksListTableView {
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
-        
+        UIFeedbackGenerator.selectionFeedback()
         if editing {
             self.navigationItem.leftBarButtonItem?.title = "Готово"
             tableView.setEditing(editing, animated: true)
@@ -107,12 +105,14 @@ extension TasksListTableView {
     }
     
     @objc func showAlertForCreateNote() {
+        UIFeedbackGenerator.selectionFeedback()
         tableView.isEditing = false
         viewModel.createTasksList()
     }
     
     private func createSwipeActions(_ indexPath: IndexPath) -> UISwipeActionsConfiguration {
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, _ in
+            UIFeedbackGenerator.notificationFeedback()
             self.viewModel.deleteTasksList(indexPath)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }
@@ -120,6 +120,7 @@ extension TasksListTableView {
         deleteAction.image = UIImage(systemName: "trash")
         
         let editAction = UIContextualAction(style: .normal, title: nil) { _, _, complition in
+            UIFeedbackGenerator.impactFeedback()
             self.viewModel.updateTasksList(indexPath)
             complition(true)
         }
@@ -148,7 +149,7 @@ extension TasksListTableView: TasksListTableViewViewModelDelegate {
         
         let saveAction = UIAlertAction(title: doneButtonText, style: .default) { _ in
             guard let newList = alertTextField.text, !newList.isEmpty else { return }
-            
+            UIFeedbackGenerator.selectionFeedback()
             if tasksList != nil {
                 StorageManager.editTasksList(tasksList!, newTitle: newList)
                 if complition != nil { complition!() }
@@ -159,7 +160,9 @@ extension TasksListTableView: TasksListTableViewViewModelDelegate {
                 self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
             }
         }
-        let cancelActon = UIAlertAction(title: "Отмена", style: .default)
+        let cancelActon = UIAlertAction(title: "Отмена", style: .default) { _ in
+            UIFeedbackGenerator.selectionFeedback()
+        }
         alert.addTextField { tf in
             tf.placeholder = "Название"
             guard let nameList = tasksList?.name else { return }
