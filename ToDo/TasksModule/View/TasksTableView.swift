@@ -1,7 +1,6 @@
 
 
 import UIKit
-import AudioToolbox
 import RealmSwift
 
 class TasksTableView: UITableViewController {
@@ -9,6 +8,7 @@ class TasksTableView: UITableViewController {
     var viewModel: TasksTableViewViewModelProtocol!
     var searchController: UISearchController!
     var searchMode = false
+    var editMode = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,9 +19,9 @@ class TasksTableView: UITableViewController {
     
     private func setTableView() {
         title = viewModel.tasksList.name
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createTasksList))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createTask))
         addButton.tintColor = .systemGreen
-        editButtonItem.image = UIImage(systemName: "square.and.pencil")
+        editButtonItem.image = UIImage(systemName: "list.bullet")
         editButtonItem.tintColor = .systemOrange
         navigationItem.rightBarButtonItems = [addButton, editButtonItem]
         view.backgroundColor = .systemGray6
@@ -45,7 +45,7 @@ class TasksTableView: UITableViewController {
         navigationItem.searchController = searchController
     }
     
-    @objc func createTasksList() {
+    @objc func createTask() {
         UIFeedbackGenerator.selectionFeedback()
         tableView.isEditing = false
         viewModel.createTask()
@@ -86,7 +86,7 @@ extension TasksTableView {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
+        editMode = true
         let task = viewModel.getCurrentOrCompletedTasks(indexPath)
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, _ in
             StorageManager.deleteTask(task)
@@ -139,13 +139,20 @@ extension TasksTableView {
     }
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
-        UIFeedbackGenerator.selectionFeedback()
         if editing {
-            self.navigationItem.rightBarButtonItems?[1].title = "Готово"
+            UIFeedbackGenerator.selectionFeedback()
+            guard !editMode else {
+                editMode = false
+                return }
             tableView.setEditing(editing, animated: true)
+            editButtonItem.image = UIImage(systemName: "checkmark")
+            editButtonItem.tintColor = .systemGreen
+            navigationItem.rightBarButtonItem?.isEnabled = false
         } else {
+            navigationItem.rightBarButtonItem?.isEnabled = true
+            editButtonItem.image = UIImage(systemName: "list.bullet")
+            editButtonItem.tintColor = .systemOrange
             tableView.endEditing(true)
-            self.navigationItem.rightBarButtonItems?[1].title = "Изменить"
         }
     }
 }
@@ -199,9 +206,7 @@ extension TasksTableView: TasksTableViewDelegate {
                 self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
             }
         }
-        let cancelActon = UIAlertAction(title: "Отмена", style: .default) { _ in
-            UIFeedbackGenerator.selectionFeedback()
-        }
+        let cancelActon = UIAlertAction(title: "Отмена", style: .default)
         alert.addTextField() { textField in
             textField.text = task?.name
             textField.placeholder = "Название"

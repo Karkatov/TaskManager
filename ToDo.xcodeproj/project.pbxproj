@@ -219,11 +219,11 @@
 		FAF1924B2822AF9B003639C1 /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
-				FA30AF41288DF0D5006B1AB0 /* Extension UIFeedbackGenerator.swift */,
 				FA338E1C281759BC00C2F4A9 /* ToDo.xcdatamodeld */,
 				FA338E13281759BC00C2F4A9 /* AppDelegate.swift */,
 				FA338E15281759BC00C2F4A9 /* SceneDelegate.swift */,
 				FA12CEBE281C4C4B003D2F66 /* StorageManager.swift */,
+				FA30AF41288DF0D5006B1AB0 /* Extension UIFeedbackGenerator.swift */,
 				FA338E1F281759BD00C2F4A9 /* Assets.xcassets */,
 				FA338E21281759BD00C2F4A9 /* LaunchScreen.storyboard */,
 			);

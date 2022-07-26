@@ -7,6 +7,7 @@ class TasksListTableView: UITableViewController {
     var viewModel: TasksListTableViewViewModelProtocol!
     var searchController: UISearchController!
     var searchMode = false
+    var editMode = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +23,7 @@ class TasksListTableView: UITableViewController {
         navigationItem.leftBarButtonItem = editButtonItem
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAlertForCreateNote))
         addButton.tintColor = .systemGreen
-        editButtonItem.image = UIImage(systemName: "square.and.pencil")
+        editButtonItem.image = UIImage(systemName: "list.bullet")
         editButtonItem.tintColor = .systemOrange
         navigationItem.rightBarButtonItem = addButton
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -94,13 +95,20 @@ extension TasksListTableView {
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
-        UIFeedbackGenerator.selectionFeedback()
         if editing {
-            self.navigationItem.leftBarButtonItem?.title = "Готово"
+            UIFeedbackGenerator.selectionFeedback()
+            guard !editMode else {
+                editMode = false
+                return }
             tableView.setEditing(editing, animated: true)
+            editButtonItem.tintColor = .systemGreen
+            navigationItem.rightBarButtonItem?.isEnabled = false
+            editButtonItem.image = UIImage(systemName: "checkmark")
         } else {
+            navigationItem.rightBarButtonItem?.isEnabled = true
+            editButtonItem.image = UIImage(systemName: "list.bullet")
+            editButtonItem.tintColor = .systemOrange
             tableView.endEditing(true)
-            self.navigationItem.leftBarButtonItem?.title = "Изменить"
         }
     }
     
@@ -111,6 +119,7 @@ extension TasksListTableView {
     }
     
     private func createSwipeActions(_ indexPath: IndexPath) -> UISwipeActionsConfiguration {
+        editMode = true
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, _ in
             UIFeedbackGenerator.notificationFeedback()
             self.viewModel.deleteTasksList(indexPath)
@@ -160,9 +169,7 @@ extension TasksListTableView: TasksListTableViewViewModelDelegate {
                 self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
             }
         }
-        let cancelActon = UIAlertAction(title: "Отмена", style: .default) { _ in
-            UIFeedbackGenerator.selectionFeedback()
-        }
+        let cancelActon = UIAlertAction(title: "Отмена", style: .default)
         alert.addTextField { tf in
             tf.placeholder = "Название"
             guard let nameList = tasksList?.name else { return }
